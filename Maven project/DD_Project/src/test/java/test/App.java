@@ -20,7 +20,8 @@ public class App {
 	static DAOMarchand daoMar = new DAOMarchand();
 	
 	static List<Marchand> marchands = new ArrayList<Marchand>();
-
+	
+	
 	/* ------------------------------------ Fonctions d'entrées au clavier ------------------------------------ */
 	public static String saisieString(String msg) 
 	{
