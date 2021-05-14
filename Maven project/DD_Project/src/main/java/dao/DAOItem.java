@@ -14,8 +14,8 @@ public class DAOItem implements IDAO<Item,Integer>{
 		return item;
 	}
 
-public List<Item> findAll() {
-	EntityManager em = Context.get_instance().getEmf().createEntityManager();	
+	public List<Item> findAll() {
+		EntityManager em = Context.get_instance().getEmf().createEntityManager();	
 		List<Item> myItems = em.createQuery("select i from Item i", Item.class).getResultList();		
 		em.close();		
 		return myItems;

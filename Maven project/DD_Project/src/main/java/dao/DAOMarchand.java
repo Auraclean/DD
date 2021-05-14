@@ -15,8 +15,8 @@ public class DAOMarchand implements IDAO<Marchand,Integer>{
 		return marchand;	
 	}
 
-public List<Marchand> findAll() {
-	EntityManager em = Context.get_instance().getEmf().createEntityManager();
+	public List<Marchand> findAll() {
+		EntityManager em = Context.get_instance().getEmf().createEntityManager();
 		List<Marchand> myMarchands = em.createQuery("select m from Marchand m", Marchand.class).getResultList();
 		em.close();
 		return myMarchands;

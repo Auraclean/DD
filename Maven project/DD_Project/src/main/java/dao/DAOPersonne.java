@@ -14,8 +14,8 @@ public class DAOPersonne implements IDAO<Personne,Integer>{
 		return personne;	
 	}
 
-public List<Personne> findAll() {	
-	EntityManager em = Context.get_instance().getEmf().createEntityManager();	
+	public List<Personne> findAll() {	
+		EntityManager em = Context.get_instance().getEmf().createEntityManager();	
 		List<Personne> myPersonnes = em.createQuery("select p from Personne p", Personne.class).getResultList();
 		em.close();
 		return myPersonnes;
