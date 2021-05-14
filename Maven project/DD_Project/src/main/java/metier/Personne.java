@@ -20,7 +20,7 @@ import javax.persistence.ManyToMany;
 public abstract class Personne {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected int id;
 	@Column(name="nom", length = 25)
     protected String nom;
