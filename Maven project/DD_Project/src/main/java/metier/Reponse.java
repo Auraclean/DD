@@ -24,8 +24,7 @@ public class Reponse {
 		this.libelle = libelle;
 	}
 	
-	public Reponse(int id, String libelle, boolean valid) {
-		this.id = id;
+	public Reponse(String libelle, boolean valid) {
 		this.libelle = libelle;
 		this.valid = valid;
 	}

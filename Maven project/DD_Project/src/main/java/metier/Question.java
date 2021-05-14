@@ -26,8 +26,7 @@ public class Question {
 	
 	public Question() {}
 	
-	public Question(int id, String libelle, List<Reponse> reponses) {
-		this.id = id;
+	public Question(String libelle, List<Reponse> reponses) {
 		this.libelle = libelle;
 		this.reponses = reponses;
 	}
