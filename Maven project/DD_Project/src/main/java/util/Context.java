@@ -6,6 +6,8 @@ import javax.persistence.Persistence;
 import dao.DAOArchetype;
 import dao.DAOItem;
 import dao.DAOMarchand;
+import dao.DAOQuestion;
+import dao.DAOReponse;
 import metier.Archetype;
 import metier.Joueur;
 import metier.Marchand;
@@ -25,6 +27,8 @@ public class Context {
 	private DAOArchetype daoArc = new DAOArchetype();
 	private DAOItem daoItem = new DAOItem();
 	private DAOMarchand daoMar = new DAOMarchand();
+	private DAOQuestion daoQues = new DAOQuestion();
+	private DAOReponse daoRep = new DAOReponse();
 
 	/*------------------------------------------ Constructeur + getters/setters ------------------------------------------*/
 	
@@ -89,6 +93,22 @@ public class Context {
 
 	public void setDaoMar(DAOMarchand daoMar) {
 		this.daoMar = daoMar;
+	}
+
+	public DAOQuestion getDaoQues() {
+		return daoQues;
+	}
+
+	public void setDaoQues(DAOQuestion daoQues) {
+		this.daoQues = daoQues;
+	}
+
+	public DAOReponse getDaoRep() {
+		return daoRep;
+	}
+
+	public void setDaoRep(DAOReponse daoRep) {
+		this.daoRep = daoRep;
 	}
 
 }

@@ -2,5 +2,5 @@ package metier;
 
 public enum Role {
 
-	Sorcier, Guerrier, Barde;
+	Sorcier, Guerrier, Barde, Chasseur;
 }
