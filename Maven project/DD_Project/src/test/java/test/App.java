@@ -244,11 +244,7 @@ public class App {
 	// cr�er le joueur, lui explique les régles 
 	public static void jouer() {
 		creationJoueur();
-<<<<<<< Updated upstream
-		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de piéces d'or.");
-=======
 		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de pièces d'or. ");
->>>>>>> Stashed changes
 		System.out.println("Ce n'est qu'une fois ce but atteint qu'il te sera possible de commencer ta propre aventure dans ce monde !");
 		System.out.println("A présent, va et montre-moi tes capacités de marchand.");
 		menu();
@@ -260,11 +256,7 @@ public class App {
 		choisirClasse();
 		System.out.println("Voici ta bourse, aventurier !");
 		ct.getP().setSolde(0);
-<<<<<<< Updated upstream
-		System.out.println("*Vous ouvrez la bourse et constatez que cette derni�re est vide.*");
-=======
 		System.out.println("*Vous ouvrez la bourse et constatez que cette dernière est vide.*");
->>>>>>> Stashed changes
 		System.out.println("Tu ne t'attendais tout de même pas à ce qu'elle contienne quelque chose ! *rire*");
 		System.out.println("En revanche, voici un sac avec des objets choisis par mes soins.");
 		donneInventaire();
@@ -342,11 +334,7 @@ public class App {
 	public static void showObjectifs() {
 		for( Item i : ct.getP().getJob().getObjectifs() )
 			System.out.println(" - Se procurer un(e) "+i);
-<<<<<<< Updated upstream
-		System.out.println(" - Obtenir une centaine de piéces d'or");
-=======
 		System.out.println(" - Obtenir une centaine de pièces d'or");
->>>>>>> Stashed changes
 	}
 
 	public static void showInventaire() {
@@ -383,11 +371,7 @@ public class App {
 		case 1 : 
 			menu();break;
 		case 2 : 
-<<<<<<< Updated upstream
-			String r = saisieString("Veux-tu vraiment arréter la partie en cours ? (Oui/Non)");
-=======
 			String r = saisieString("Veux-tu vraiment arrêter la partie en cours ? (Oui/Non)");
->>>>>>> Stashed changes
 			if(r.equalsIgnoreCase("Oui")) startJeu();break;
 		}
 		pause();
