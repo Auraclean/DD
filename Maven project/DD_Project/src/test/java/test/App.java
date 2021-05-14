@@ -271,8 +271,8 @@ public class App {
 			//Montre les classes disponibles
 			System.out.println( ct.getDaoArc().findAll() ); 
 			classe = ct.getDaoArc().findById(saisieInt(""));
-			System.out.println("Voici les objets correspondant à cette classe :");
 			//Montre les objectifs liés à la classe choisie
+			System.out.println("Voici les objets correspondant à cette classe :");
 			//A modifier, il y a trop d'infos sur les items
 			System.out.println( classe.getObjectifs() ); 
 			choix = saisieString("Es-tu certain de ton choix ? (Oui/Non)");
