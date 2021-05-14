@@ -99,7 +99,6 @@ public class App {
 
 	// Initialise les attributs (id, nom, classe, solde, inventaire) du joueur 
 	public static void creationJoueur() {
-		ct.getP().setId(0);
 		ct.getP().setNom(saisieString("Quel est ton nom ?"));
 		choisirClasse();
 		System.out.println("Voici ta bourse, aventurier !");
