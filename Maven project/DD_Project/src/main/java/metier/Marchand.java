@@ -2,10 +2,22 @@ package metier;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+@Entity
 public class Marchand extends Personne{
 
+	@Column(name="magasin", length = 100)
 	private String nomMagasin;
+	@Column(name="affinite")
 	private int affinite;
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name="questions",joinColumns = @JoinColumn(name="idMarchand"),inverseJoinColumns = @JoinColumn(name="idQuestion"))
 	private List<Question> questions;
 	
 	public Marchand() {}
