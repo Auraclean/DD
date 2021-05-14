@@ -39,22 +39,6 @@ public class App {
 
 	/* ------------------------------------ Initialisation ------------------------------------ */
 	public static void init() {
-		Item i1 	= new Item(	"a"	, "C'est la lettre a."	, 2		);
-		Item i2 	= new Item(	"b"	, "C'est la lettre b."	, 4		);
-		Item i3 	= new Item(	"c"	, "C'est la lettre c."	, 6		);
-		Item i4 	= new Item(	"d"	, "C'est la lettre d."	, 8		);
-		Item i5 	= new Item(	"e"	, "C'est la lettre e."	, 10	);
-		Item i6 	= new Item(	"f"	, "C'est la lettre f."	, 12	);
-		Item i7 	= new Item(	"g"	, "C'est la lettre g."	, 14	);
-		Item i8 	= new Item(	"h"	, "C'est la lettre h."	, 16	);
-		Item i9 	= new Item(	"i"	, "C'est la lettre i."	, 18	);
-		Item i10 	= new Item(	"j"	, "C'est la lettre j."	, 20	);
-
-
-
-
-
-
 
 	}
 
@@ -97,7 +81,7 @@ public class App {
 		menu();
 	}
 
-	// Initialise les attributs (id, nom, classe, solde, inventaire) du joueur 
+	// Initialise les attributs (nom, classe, solde, inventaire) du joueur 
 	public static void creationJoueur() {
 		ct.getP().setNom(saisieString("Quel est ton nom ?"));
 		choisirClasse();
@@ -146,16 +130,21 @@ public class App {
 
 	/* ------------------------------------ Menu de base ------------------------------------ */
 	public static void menu() {
+		
+		if( ct.getP().getInventaire().containsAll( ct.getP().getJob().getObjectifs() ) && ct.getP().getSolde() >= 100 ) victoryScreen();
+		
 		System.out.println("Que faire ?");
 		System.out.println("1 - Aller voir un marchand");
 		System.out.println("2 - Voir les objectifs");
-		System.out.println("3 - Pause");
+		System.out.println("3 - Voir l'inventaire");
+		System.out.println("4 - Pause");
 		
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 : choisirMarchand();break;
 		case 2 : showObjectifs();break;
-		case 3 : pause();break;
+		case 3 : showInventaire();break;
+		case 4 : pause();break;
 		}
 		menu();
 
@@ -166,11 +155,9 @@ public class App {
 		System.out.println("Choisis à présent le marchand chez lequel tu souhaites te rendre :");
 		System.out.println( ct.getDaoMar().findAll() );
 		int choix = saisieInt("");
-		// ???
 		if( choix >= 1 && choix <= ct.getDaoMar().findAll().size() ) {
 			Marchand m = ct.getDaoMar().findById(choix);
-			//Ne pas oublier que les marchands sont différents entre eux
-			menuMarchand();
+			menuMarchand(m);
 		}
 		else menu();
 	}
@@ -179,6 +166,28 @@ public class App {
 		for( Item i : ct.getP().getJob().getObjectifs() )
 			System.out.println(" - Se procurer un(e) "+i);
 		System.out.println(" - Obtenir une centaine de pièces d'or");
+	}
+
+	public static void showInventaire() {
+		System.out.println("Vous possédez "+ ct.getP().getSolde() );
+		System.out.println( ct.getP().getInventaire() );
+		
+		System.out.println("Que faire ?");
+		System.out.println("1 - Voir la description d'un objet");
+		System.out.println("2 - Retour");
+		
+		int choix = saisieInt("");
+		switch(choix) {
+		case 1 : decrireObjet();break;
+		case 2 : menu();break;
+		}
+		showInventaire();
+	}
+	
+	public static void decrireObjet() {
+		String objet = saisieString("Saisir le nom de l'objet");
+		for( Item it : ct.getP().getInventaire() )
+			if( objet.equalsIgnoreCase( it.getNom() ) ) System.out.println( it.getDescription() ); 
 	}
 
 	/* ------------------------------------ Pause ------------------------------------ */
@@ -200,12 +209,46 @@ public class App {
 	}
 	
 	/* ------------------------------------ Menu Marchand ------------------------------------ */
-	public static void menuMarchand() {
+	public static void menuMarchand(Marchand m) {
 		System.out.println("Bonjour aventurier, prends ton temps et regarde tout ce qui t'intéresse.");
 		System.out.println("1 - Discuter");
 		System.out.println("2 - Voir les objets en vente");
 		System.out.println("3 - Vendre un objet");
 		
+		int choix = saisieInt("");
+		switch(choix) {
+		case 1 : discuter();break;
+		case 2 : showInventaireMarchand();break;
+		case 3 : vendre();break;
+		}
+		menuMarchand(m);
+		
+	}
+	
+	public static void discuter() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private static void showInventaireMarchand() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void vendre() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/* ------------------------------------ Ecran de victoire ------------------------------------ */
+	public static void victoryScreen() {
+		// remplir ici un fichier avec les données du joueur + remerciements. 
+		System.out.println("Je t'attendais aventurier !");
+		System.out.println("Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
+		System.out.println("J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
+		System.out.println("");
+		System.out.println("*Bravo, vous avez accompli vos objectifs avec brio !*");
+		System.exit(0);
 	}
 	
 }
