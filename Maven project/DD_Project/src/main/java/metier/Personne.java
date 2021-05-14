@@ -2,11 +2,32 @@ package metier;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Personne {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
+	@Column(name="nom", length = 25)
     protected String nom;
+	@Column(name="solde")
     protected int solde;
+	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+	@JoinTable(name="inventaire",joinColumns = @JoinColumn(name="idPersonne"),inverseJoinColumns = @JoinColumn(name="idItem"))
     protected List<Item> inventaire;
     
     public Personne() {}
