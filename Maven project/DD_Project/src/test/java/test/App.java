@@ -219,6 +219,7 @@ public class App {
 
 		init();
 		startJeu();
+		ct.getEmf().close();
 
 	}
 
@@ -385,32 +386,76 @@ public class App {
 		System.out.println("1 - Discuter");
 		System.out.println("2 - Voir les objets en vente");
 		System.out.println("3 - Vendre un objet");
+		System.out.println("4 - Partir");
 		
 		int choix = saisieInt("");
 		switch(choix) {
-		case 1 : discuter();break;
-		case 2 : showInventaireMarchand();break;
-		case 3 : vendre();break;
+		case 1 : discuter(m);break;
+		case 2 : showInventaireMarchand(m);break;
+		case 3 : vendreObjet(m);break;
+		case 4 : menu();break;
 		}
 		menuMarchand(m);
-		
 	}
 	
-	public static void discuter() {
-		// TODO Auto-generated method stub
-		
+	public static void discuter(Marchand m) {
+		for( Question q : m.getQuestions() ) {
+			System.out.println( q.getLibelle() );
+			for( Reponse r : q.getReponses() ) {
+				System.out.println( r.getLibelle() );
+			}
+			int choix = saisieInt("");
+			//Trouver un moyen de s�lectionner une r�ponse
+			if( r.valid ) System.out.println("Bonne r�ponse !");
+			else System.out.println("Mauvaise r�ponse.");
+			
+			//Il faut trouver un moyen de stocker le nombre de questions restantes pour reprendre si le joueur a envie
+			String papoter = saisieString("Continuer de discuter ? (Oui/Non)");
+			if(papoter.equalsIgnoreCase("Non")) menuMarchand(m); 
+		}
+		menuMarchandssQ(m);
 	}
 	
-	private static void showInventaireMarchand() {
+	public static void menuMarchandssQ(Marchand m) {
+		System.out.println("Bonjour aventurier, prends ton temps et regarde tout ce qui t'int�resse.");
+		System.out.println("1 - Voir les objets en vente");
+		System.out.println("2 - Vendre un objet");
+		System.out.println("3 - Partir");
+		
+		int choix = saisieInt("");
+		switch(choix) {
+		case 1 : showInventaireMarchand(m);break;
+		case 2 : vendreObjet(m);break;
+		case 3 : menu();break;
+		}
+		menuMarchandssQ(m);
+	}
+
+	public static void showInventaireMarchand(Marchand m) {
+		for (Item it : m.getInventaire() )
+			System.out.println( it.getNom() +", Prix : "+ it.getValeur() +" PO");
+		//Yann
+		acheter();
+	}
+
+	public static void acheter() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	public static void vendreObjet(Marchand m) {
+		for (Item it : ct.getP().getInventaire() )
+			//Attention, il faut modifier le prix selon le marchand...
+			System.out.println( it.getNom() +", Prix : "+ it.getValeur() +" PO");
+		//Yann
+		vendre();
+	}
+	
 	public static void vendre() {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 	/* ------------------------------------ Ecran de victoire ------------------------------------ */
 	public static void victoryScreen() {
 		// remplir ici un fichier avec les données du joueur + remerciements. 
