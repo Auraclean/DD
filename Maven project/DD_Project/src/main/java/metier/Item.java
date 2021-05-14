@@ -1,10 +1,23 @@
 package metier;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Item {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name="nom")
 	private String nom;
+	@Column(name="description")
     private String description;
+	@Column(name="valeur_item")
     private int valeur;
 
     public Item() {}
