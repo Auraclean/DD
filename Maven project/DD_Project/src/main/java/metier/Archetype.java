@@ -20,7 +20,7 @@ public class Archetype {
 	private int id;
 	@Enumerated(EnumType.STRING)
 	private Role nom;
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name="objectifs")
 	private List<Item> objectifs;
 	

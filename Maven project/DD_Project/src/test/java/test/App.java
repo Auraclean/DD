@@ -12,7 +12,7 @@ public class App {
 
 	static Context ct = Context.get_instance();
 	
-	/* ------------------------------------ Fonctions d'entr�es au clavier ------------------------------------ */
+	/* ------------------------------------ Fonctions d'entrees au clavier ------------------------------------ */
 	public static String saisieString(String msg) 
 	{
 		Scanner sc = new Scanner(System.in);
@@ -53,17 +53,17 @@ public class App {
 		Item i11 	= new Item("Sabre Laser", "artefact perdu des temps anciens", 75);
 		Item i12 	= new Item("Bouclier de bois", "Craint le feu", 10);
 		Item i13 	= new Item("Bouclier de metal", "Craint le feu tres chaud", 20);
-		Item i14 	= new Item("Dagues d\'argent", "Ce ne sont pas des shurikens", 15);
-		Item i15 	= new Item("Marteau", "A rendre au forgeron qui l\'a perdu", 0);
+		Item i14 	= new Item("Dagues d'argent", "Ce ne sont pas des shurikens", 15);
+		Item i15 	= new Item("Marteau", "A rendre au forgeron qui l'a perdu", 0);
 		Item i16 	= new Item("Potion de soin", "pour soigner les blessures non-lethales", 10);
-		Item i17 	= new Item("Fiole d\'alchimie", "concoction obscure et odorante", 7);
+		Item i17 	= new Item("Fiole d'alchimie", "concoction obscure et odorante", 7);
 		Item i18 	= new Item("Herbes de provence", "pour cuisiner de bons petits plats", 3);
 		Item i19 	= new Item("Kamoulox", "pour gagner un argument", 13);
-		Item i20 	= new Item("Pistole � poudre", "Et paf ca fait pan", 43);
-		Item i21 	= new Item("Arbalete", "Plus puissante mais plus lente qu\'un arc", 36);
-		Item i22 	= new Item("Arc", "Plus rapide mais plus faible qu\'une arbalete", 20);
+		Item i20 	= new Item("Pistolet a poudre", "Et paf ca fait pan", 43);
+		Item i21 	= new Item("Arbalete", "Plus puissante mais plus lente qu'un arc", 36);
+		Item i22 	= new Item("Arc", "Plus rapide mais plus faible qu'une arbalete", 20);
 		Item i23 	= new Item("Fleches", "Vendues par 12", 12);
-		Item i24 	= new Item("Pi�ge � fosse", "Les monstres tombent dans un trou et peuvent �tre captur�s", 28);
+		Item i24 	= new Item("Piege a fosse", "Les monstres tombent dans un trou et peuvent etre captures", 28);
 		Item i25 	= new Item("Corne de Chasse", "La meilleure arme pour tuer des dragons en musique", 66);
 		
 		Context.get_instance().getDaoItem().save(i1);
@@ -125,16 +125,16 @@ public class App {
 		//Creation Reponses
 		Reponse r1 = new Reponse("Charmant et rustisque comme je les aime", false);
 		Reponse r2 = new Reponse("Petit mais convivial", false);
-		Reponse r3 = new Reponse("Il sent un peu le souffre quand m�me", true);
-		Reponse r4 = new Reponse("Oui, en ce moment meme je parle � quelque chose d\'effrayant", false);
-		Reponse r5 = new Reponse("Non, jamais je n\'ai trembl� face au danger!", false);
-		Reponse r6 = new Reponse("Bien sur! Et je peux m�me te l\'enseigner si tu insistes!", true);
+		Reponse r3 = new Reponse("Il sent un peu le souffre quand meme", true);
+		Reponse r4 = new Reponse("Oui, en ce moment meme je parle a quelque chose d'effrayant", false);
+		Reponse r5 = new Reponse("Non, jamais je n'ai tremble face au danger!", false);
+		Reponse r6 = new Reponse("Bien sur! Et je peux meme te l'enseigner si tu insistes!", true);
 		Reponse r7 = new Reponse("Inspecteur Gadget! Go-go-gadgeto mawashi-geri dans les valseuses!", true);
-		Reponse r8 = new Reponse("C\'est moi abruti", false);
-		Reponse r9= new Reponse("Juste un simple aventurier � la recherche d\'�quipement de noob pour partir faire les qu�tes niveau 1", false);
+		Reponse r8 = new Reponse("C'est moi abruti", false);
+		Reponse r9= new Reponse("Juste un simple aventurier a la recherche d'equipement de noob pour partir faire les quetes niveau 1", false);
 		Reponse r10 = new Reponse("Fonder une famille et vivre paisiblement", false);
-		Reponse r11 = new Reponse("D�couvrir la v�rit� de ce monde", true);
-		Reponse r12 = new Reponse("Combattre les injustices de la soci�t�", false);
+		Reponse r11 = new Reponse("Decouvrir la verite de ce monde", true);
+		Reponse r12 = new Reponse("Combattre les injustices de la société", false);
 		
 		/*Context.get_instance().getDaoRep().save(r1);
 		Context.get_instance().getDaoRep().save(r2);
@@ -169,7 +169,7 @@ public class App {
 		reponses4.add(r12);
 		
 		Question q1 = new Question("Que penses-tu de notre village aventurier?", reponses1);
-		Question q2 = new Question("As-tu d�j� connu la peur l'�tranger??", reponses2);
+		Question q2 = new Question("As-tu déj� connu la peur l'�tranger??", reponses2);
 		Question q3 = new Question("Hol� qui va l�!?", reponses3);
 		Question q4 = new Question("Quel est ton plus grand d�sir l'aventurier?", reponses4);
 		
@@ -224,7 +224,7 @@ public class App {
 
 	/* ------------------------------------ Start Jeu ------------------------------------ */
 	public static void startJeu() {
-		System.out.println("Salut � toi, aventurier !");
+		System.out.println("Salut à toi, aventurier !");
 		System.out.println("Tu errais dans la for�t mais tu viens d'apercevoir un petit village.");
 		System.out.println("Que d�cides-tu ?");
 		System.out.println("1 - Visiter le village");

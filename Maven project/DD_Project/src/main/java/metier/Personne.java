@@ -26,7 +26,7 @@ public abstract class Personne {
     protected String nom;
 	@Column(name="solde")
     protected int solde;
-	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+	@ManyToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE})
 	@JoinTable(name="inventaire",joinColumns = @JoinColumn(name="idPersonne"),inverseJoinColumns = @JoinColumn(name="idItem"))
     protected List<Item> inventaire;
     
