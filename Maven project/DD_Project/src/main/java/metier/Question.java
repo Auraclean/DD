@@ -2,11 +2,15 @@ package metier;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Question {
@@ -16,7 +20,8 @@ public class Question {
 	private int id;
 	@Column(name="libelle", length = 100)
 	private String libelle;
-	@Column(name="reponse")
+	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+	@JoinTable(name="reponses",joinColumns = @JoinColumn(name="idQuestion"),inverseJoinColumns = @JoinColumn(name="idReponse"))
 	private List<Reponse> reponses;
 	
 	public Question() {}
