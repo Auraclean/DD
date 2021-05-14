@@ -12,7 +12,7 @@ public class App {
 
 	static Context ct = Context.get_instance();
 	
-	/* ------------------------------------ Fonctions d'entrees au clavier ------------------------------------ */
+	/* ------------------------------------ Fonctions d'entrées au clavier ------------------------------------ */
 	public static String saisieString(String msg) 
 	{
 		Scanner sc = new Scanner(System.in);
@@ -241,7 +241,7 @@ public class App {
 	}
 
 	/* ------------------------------------ Jouer ------------------------------------ */
-	// cr�er le joueur, lui explique les régles 
+	// créer le joueur, lui explique les régles 
 	public static void jouer() {
 		creationJoueur();
 		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de pièces d'or. ");
