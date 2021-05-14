@@ -12,7 +12,7 @@ public class Reponse {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name="libelle")
+	@Column(name="libelle", length = 100)
 	private String libelle;
 	@Column(name="valid")
 	private boolean valid;
