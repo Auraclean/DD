@@ -210,9 +210,7 @@ public class App {
 		Context.get_instance().getDaoMar().save(m2);
 		
 		Context.get_instance().getEmf().close();
-
 	}
-
 
 	/* ------------------------------------ MAIN ------------------------------------ */
 	public static void main(String[] args) {
@@ -240,14 +238,17 @@ public class App {
 			System.exit(0);break;
 		}
 		startJeu();
-
 	}
 
 	/* ------------------------------------ Jouer ------------------------------------ */
 	// cr�er le joueur, lui explique les régles 
 	public static void jouer() {
 		creationJoueur();
+<<<<<<< Updated upstream
 		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de piéces d'or.");
+=======
+		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de pièces d'or. ");
+>>>>>>> Stashed changes
 		System.out.println("Ce n'est qu'une fois ce but atteint qu'il te sera possible de commencer ta propre aventure dans ce monde !");
 		System.out.println("A présent, va et montre-moi tes capacités de marchand.");
 		menu();
@@ -259,7 +260,11 @@ public class App {
 		choisirClasse();
 		System.out.println("Voici ta bourse, aventurier !");
 		ct.getP().setSolde(0);
+<<<<<<< Updated upstream
 		System.out.println("*Vous ouvrez la bourse et constatez que cette derni�re est vide.*");
+=======
+		System.out.println("*Vous ouvrez la bourse et constatez que cette dernière est vide.*");
+>>>>>>> Stashed changes
 		System.out.println("Tu ne t'attendais tout de même pas à ce qu'elle contienne quelque chose ! *rire*");
 		System.out.println("En revanche, voici un sac avec des objets choisis par mes soins.");
 		donneInventaire();
@@ -337,7 +342,11 @@ public class App {
 	public static void showObjectifs() {
 		for( Item i : ct.getP().getJob().getObjectifs() )
 			System.out.println(" - Se procurer un(e) "+i);
+<<<<<<< Updated upstream
 		System.out.println(" - Obtenir une centaine de piéces d'or");
+=======
+		System.out.println(" - Obtenir une centaine de pièces d'or");
+>>>>>>> Stashed changes
 	}
 
 	public static void showInventaire() {
@@ -374,7 +383,11 @@ public class App {
 		case 1 : 
 			menu();break;
 		case 2 : 
+<<<<<<< Updated upstream
 			String r = saisieString("Veux-tu vraiment arréter la partie en cours ? (Oui/Non)");
+=======
+			String r = saisieString("Veux-tu vraiment arrêter la partie en cours ? (Oui/Non)");
+>>>>>>> Stashed changes
 			if(r.equalsIgnoreCase("Oui")) startJeu();break;
 		}
 		pause();
@@ -405,9 +418,9 @@ public class App {
 				System.out.println( r.getLibelle() );
 			}
 			int choix = saisieInt("");
-			//Trouver un moyen de s�lectionner une r�ponse
-			if( r.valid ) System.out.println("Bonne r�ponse !");
-			else System.out.println("Mauvaise r�ponse.");
+			//Trouver un moyen de sélectionner une réponse
+			if( r.valid ) System.out.println("Bonne réponse !");
+			else System.out.println("Mauvaise réponse.");
 			
 			//Il faut trouver un moyen de stocker le nombre de questions restantes pour reprendre si le joueur a envie
 			String papoter = saisieString("Continuer de discuter ? (Oui/Non)");
@@ -417,7 +430,7 @@ public class App {
 	}
 	
 	public static void menuMarchandssQ(Marchand m) {
-		System.out.println("Bonjour aventurier, prends ton temps et regarde tout ce qui t'int�resse.");
+		System.out.println("Bonjour aventurier, prends ton temps et regarde tout ce qui t'intéresse.");
 		System.out.println("1 - Voir les objets en vente");
 		System.out.println("2 - Vendre un objet");
 		System.out.println("3 - Partir");
