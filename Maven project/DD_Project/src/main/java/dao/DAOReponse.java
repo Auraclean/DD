@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 import metier.Reponse;
 import util.Context;
 
-public class DAOReponse implements IDAO<Reponse,Integer>{
+public class DAOReponse implements IDAO<Reponse,Integer> {
 
 	public Reponse findById(int id) {
 		EntityManager em = Context.get_instance().getEmf().createEntityManager();
@@ -14,8 +14,8 @@ public class DAOReponse implements IDAO<Reponse,Integer>{
 		return reponse;
 	}
 
-public List<Reponse> findAll() {
-	EntityManager em = Context.get_instance().getEmf().createEntityManager();	
+	public List<Reponse> findAll() {
+		EntityManager em = Context.get_instance().getEmf().createEntityManager();	
 		List<Reponse> myReponses = em.createQuery("select r from Reponse r", Reponse.class).getResultList();
 		em.close();
 		return myReponses;
@@ -37,5 +37,5 @@ public List<Reponse> findAll() {
 		em.remove(reponse);
 		em.getTransaction().commit();
 		em.close();
-	}	
+	}
 }
