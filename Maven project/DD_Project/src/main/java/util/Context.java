@@ -1,8 +1,5 @@
 package util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -25,8 +22,6 @@ public class Context {
 	private Marchand m = new Marchand(); 
 	private Archetype classe = new Archetype();
 	
-	private List<Marchand> marchands = new ArrayList<Marchand>();
-
 	private DAOArchetype daoArc = new DAOArchetype();
 	private DAOItem daoItem = new DAOItem();
 	private DAOMarchand daoMar = new DAOMarchand();
@@ -70,14 +65,6 @@ public class Context {
 
 	public void setClasse(Archetype classe) {
 		this.classe = classe;
-	}
-
-	public List<Marchand> getMarchands() {
-		return marchands;
-	}
-
-	public void setMarchands(List<Marchand> marchands) {
-		this.marchands = marchands;
 	}
 
 	public DAOArchetype getDaoArc() {
