@@ -169,9 +169,9 @@ public class App {
 		reponses4.add(r12);
 		
 		Question q1 = new Question("Que penses-tu de notre village aventurier?", reponses1);
-		Question q2 = new Question("As-tu déj� connu la peur l'�tranger??", reponses2);
-		Question q3 = new Question("Hol� qui va l�!?", reponses3);
-		Question q4 = new Question("Quel est ton plus grand d�sir l'aventurier?", reponses4);
+		Question q2 = new Question("As-tu déjà connu la peur l'étranger??", reponses2);
+		Question q3 = new Question("Holà qui va là!?", reponses3);
+		Question q4 = new Question("Quel est ton plus grand désir l'aventurier?", reponses4);
 		
 		/*Context.get_instance().getDaoQues().save(q1);
 		Context.get_instance().getDaoQues().save(q2);
@@ -225,8 +225,8 @@ public class App {
 	/* ------------------------------------ Start Jeu ------------------------------------ */
 	public static void startJeu() {
 		System.out.println("Salut à toi, aventurier !");
-		System.out.println("Tu errais dans la for�t mais tu viens d'apercevoir un petit village.");
-		System.out.println("Que d�cides-tu ?");
+		System.out.println("Tu errais dans la forêt mais tu viens d'apercevoir un petit village.");
+		System.out.println("Que décides-tu ?");
 		System.out.println("1 - Visiter le village");
 		System.out.println("2 - Ignorer le village et passer ton chemin");
 
@@ -243,12 +243,12 @@ public class App {
 	}
 
 	/* ------------------------------------ Jouer ------------------------------------ */
-	// cr�er le joueur, lui explique les r�gles 
+	// cr�er le joueur, lui explique les régles 
 	public static void jouer() {
 		creationJoueur();
-		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de pi�ces d'or. ");
+		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de piéces d'or.");
 		System.out.println("Ce n'est qu'une fois ce but atteint qu'il te sera possible de commencer ta propre aventure dans ce monde !");
-		System.out.println("A pr�sent, va et montre-moi tes capacit�s de marchand.");
+		System.out.println("A présent, va et montre-moi tes capacités de marchand.");
 		menu();
 	}
 
@@ -259,7 +259,7 @@ public class App {
 		System.out.println("Voici ta bourse, aventurier !");
 		ct.getP().setSolde(0);
 		System.out.println("*Vous ouvrez la bourse et constatez que cette derni�re est vide.*");
-		System.out.println("Tu ne t'attendais tout de m�me pas � ce qu'elle contienne quelque chose ! *rire*");
+		System.out.println("Tu ne t'attendais tout de même pas à ce qu'elle contienne quelque chose ! *rire*");
 		System.out.println("En revanche, voici un sac avec des objets choisis par mes soins.");
 		donneInventaire();
 	}
@@ -273,8 +273,8 @@ public class App {
 			//Montre les classes disponibles
 			System.out.println( ct.getDaoArc().findAll() ); 
 			classe = ct.getDaoArc().findById(saisieInt(""));
-			System.out.println("Voici les objets correspondant � cette classe :");
-			//Montre les objectifs li�s � la classe choisie
+			System.out.println("Voici les objets correspondant à cette classe :");
+			//Montre les objectifs liés à la classe choisie
 			//A modifier, il y a trop d'infos sur les items
 			System.out.println( classe.getObjectifs() ); 
 			choix = saisieString("Es-tu certain de ton choix ? (Oui/Non)");
@@ -323,7 +323,7 @@ public class App {
 
 	/* ------------------------------------ Choisir Marchand ------------------------------------ */
 	public static void choisirMarchand() {
-		System.out.println("Choisis � pr�sent le marchand chez lequel tu souhaites te rendre :");
+		System.out.println("Choisis à présent le marchand chez lequel tu souhaites te rendre :");
 		System.out.println( ct.getDaoMar().findAll() );
 		int choix = saisieInt("");
 		if( choix >= 1 && choix <= ct.getDaoMar().findAll().size() ) {
@@ -336,11 +336,11 @@ public class App {
 	public static void showObjectifs() {
 		for( Item i : ct.getP().getJob().getObjectifs() )
 			System.out.println(" - Se procurer un(e) "+i);
-		System.out.println(" - Obtenir une centaine de pi�ces d'or");
+		System.out.println(" - Obtenir une centaine de piéces d'or");
 	}
 
 	public static void showInventaire() {
-		System.out.println("Vous poss�dez "+ ct.getP().getSolde() );
+		System.out.println("Vous possédez "+ ct.getP().getSolde() );
 		System.out.println( ct.getP().getInventaire() );
 		
 		System.out.println("Que faire ?");
@@ -366,14 +366,14 @@ public class App {
 		System.out.println("--- PAUSE ---");
 		// afficher le timer (temps de jeu)?
 		System.out.println("1 - Reprendre le jeu");
-		System.out.println("2 - R�initialiser la partie");
+		System.out.println("2 - Réinitialiser la partie");
 		
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 : 
 			menu();break;
 		case 2 : 
-			String r = saisieString("Veux-tu vraiment arr�ter la partie en cours ? (Oui/Non)");
+			String r = saisieString("Veux-tu vraiment arréter la partie en cours ? (Oui/Non)");
 			if(r.equalsIgnoreCase("Oui")) startJeu();break;
 		}
 		pause();
@@ -381,7 +381,7 @@ public class App {
 	
 	/* ------------------------------------ Menu Marchand ------------------------------------ */
 	public static void menuMarchand(Marchand m) {
-		System.out.println("Bonjour aventurier, prends ton temps et regarde tout ce qui t'int�resse.");
+		System.out.println("Bonjour aventurier, prends ton temps et regarde tout ce qui t'intéresse.");
 		System.out.println("1 - Discuter");
 		System.out.println("2 - Voir les objets en vente");
 		System.out.println("3 - Vendre un objet");
@@ -413,10 +413,10 @@ public class App {
 	
 	/* ------------------------------------ Ecran de victoire ------------------------------------ */
 	public static void victoryScreen() {
-		// remplir ici un fichier avec les donn�es du joueur + remerciements. 
+		// remplir ici un fichier avec les données du joueur + remerciements. 
 		System.out.println("Je t'attendais aventurier !");
-		System.out.println("Je te f�licite ! Tu es parvenu � r�unir les objets et l'argent n�cessaires � ton p�riple.");
-		System.out.println("J'esp�re que ton s�jour ici a �t� plaisant. N'h�site pas � revenir me voir !");
+		System.out.println("Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
+		System.out.println("J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
 		System.out.println("");
 		System.out.println("*Bravo, vous avez accompli vos objectifs avec brio !*");
 		System.exit(0);
