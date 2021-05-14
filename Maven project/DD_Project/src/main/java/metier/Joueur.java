@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Joueur extends Personne {
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.MERGE)
     private Archetype job;
 
     public Joueur() {}

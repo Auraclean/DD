@@ -20,7 +20,7 @@ public class Question {
 	private int id;
 	@Column(name="libelle", length = 100)
 	private String libelle;
-	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+	@OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE})
 	@JoinTable(name="reponses",joinColumns = @JoinColumn(name="idQuestion"),inverseJoinColumns = @JoinColumn(name="idReponse"))
 	private List<Reponse> reponses;
 	

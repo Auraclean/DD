@@ -16,7 +16,7 @@ public class Marchand extends Personne{
 	private String nomMagasin;
 	@Column(name="affinite")
 	private int affinite;
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinTable(name="questions",joinColumns = @JoinColumn(name="idMarchand"),inverseJoinColumns = @JoinColumn(name="idQuestion"))
 	private List<Question> questions;
 	
