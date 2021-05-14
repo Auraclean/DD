@@ -5,22 +5,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import dao.*;
 import metier.*;
+import util.Context;
 
 public class App {
 
-	/* ------------------------------------ Variables globales ------------------------------------ */
-	static Joueur p = new Joueur();
-	static Marchand m = new Marchand(); 
-	static Archetype classe = new Archetype();
-
-	static DAOArchetype daoArc = new DAOArchetype();
-	static DAOItem daoItem = new DAOItem();
-	static DAOMarchand daoMar = new DAOMarchand();
-	
-	static List<Marchand> marchands = new ArrayList<Marchand>();
-	
+	static Context ct = Context.get_instance();
 	
 	/* ------------------------------------ Fonctions d'entrées au clavier ------------------------------------ */
 	public static String saisieString(String msg) 
@@ -109,11 +99,11 @@ public class App {
 
 	// Initialise les attributs (id, nom, classe, solde, inventaire) du joueur 
 	public static void creationJoueur() {
-		p.setId(0);
-		p.setNom(saisieString("Quel est ton nom ?"));
+		ct.getP().setId(0);
+		ct.getP().setNom(saisieString("Quel est ton nom ?"));
 		choisirClasse();
 		System.out.println("Voici ta bourse, aventurier !");
-		p.setSolde(0);
+		ct.getP().setSolde(0);
 		System.out.println("*Vous ouvrez la bourse et constatez que cette dernière est vide.*");
 		System.out.println("Tu ne t'attendais tout de même pas à ce qu'elle contienne quelque chose ! *rire*");
 		System.out.println("En revanche, voici un sac avec des objets choisis par mes soins.");
@@ -122,23 +112,24 @@ public class App {
 	
 	public static void choisirClasse() {
 		String choix = null;
+		Archetype classe = null;
 		System.out.println("Avant tout, quelle est ta classe ?");
 		
 		do {
 			//Montre les classes disponibles
-			daoArc.findAll(); 
-			classe = daoArc.findById(saisieInt(""));
+			System.out.println( ct.getDaoArc().findAll() ); 
+			classe = ct.getDaoArc().findById(saisieInt(""));
 			System.out.println("Voici les objets correspondant à cette classe :");
 			//Montre les objectifs liés à la classe choisie
-			classe.getObjectifs().toString(); 
+			//A modifier, il y a trop d'infos sur les items
+			System.out.println( classe.getObjectifs() ); 
 			choix = saisieString("Es-tu certain de ton choix ? (Oui/Non)");
 		} while( !(choix.equalsIgnoreCase("Oui")) );
-		
-		p.setJob(classe);
+		ct.getP().setJob(classe);
 	}
 
 	public static void donneInventaire() {
-		List<Item> allItems = daoItem.findAll();
+		List<Item> allItems = ct.getDaoItem().findAll();
 		List<Item> inventaire = new ArrayList<Item>();
 		Item it = null;
 
@@ -148,9 +139,10 @@ public class App {
 				Random rand = new Random();
 				Item allIt[] = (Item[]) allItems.toArray();
 				it = allIt[ rand.nextInt(allIt.length) ];
-				// ???
-			} while( p.getJob().getObjectifs().contains(it) ||  inventaire.contains(it) );
+			} while( ct.getP().getJob().getObjectifs().contains(it) ||  inventaire.contains(it) );
+			inventaire.add(it);
 		}
+		ct.getP().setInventaire(inventaire);
 	}
 
 	/* ------------------------------------ Menu de base ------------------------------------ */
@@ -173,18 +165,19 @@ public class App {
 	/* ------------------------------------ Choisir Marchand ------------------------------------ */
 	public static void choisirMarchand() {
 		System.out.println("Choisis à présent le marchand chez lequel tu souhaites te rendre :");
-		marchands = daoMar.findAll();
+		System.out.println( ct.getDaoMar().findAll() );
 		int choix = saisieInt("");
 		// ???
-		if( choix >= 1 && choix <= marchands.size() ) {
-			m = daoMar.findById(choix);
+		if( choix >= 1 && choix <= ct.getDaoMar().findAll().size() ) {
+			Marchand m = ct.getDaoMar().findById(choix);
+			//Ne pas oublier que les marchands sont différents entre eux
 			menuMarchand();
 		}
 		else menu();
 	}
 
 	public static void showObjectifs() {
-		for( Item i : p.getJob().getObjectifs() )
+		for( Item i : ct.getP().getJob().getObjectifs() )
 			System.out.println(" - Se procurer un(e) "+i);
 		System.out.println(" - Obtenir une centaine de pièces d'or");
 	}
