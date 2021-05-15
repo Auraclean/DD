@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,12 +24,16 @@ public class Question {
 	@OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE})
 	@JoinTable(name="reponses",joinColumns = @JoinColumn(name="idQuestion"),inverseJoinColumns = @JoinColumn(name="idReponse"))
 	private List<Reponse> reponses;
+	//Attention, cet attribut permet de gérer à quel marchand est attribuée cette question
+	@ManyToOne
+	private Marchand marchand; 
 	
 	public Question() {}
 	
-	public Question(String libelle, List<Reponse> reponses) {
+	public Question(String libelle, List<Reponse> reponses, Marchand marchand) {
 		this.libelle = libelle;
 		this.reponses = reponses;
+		this.marchand = marchand;
 	}
 
 	public int getId() {
@@ -53,6 +58,14 @@ public class Question {
 	
 	public void setReponses(List<Reponse> reponses) {
 		this.reponses = reponses;
+	}
+
+	public Marchand getMarchand() {
+		return marchand;
+	}
+
+	public void setMarchand(Marchand marchand) {
+		this.marchand = marchand;
 	}
 
 	@Override

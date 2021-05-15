@@ -5,9 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Marchand extends Personne{
@@ -16,24 +14,24 @@ public class Marchand extends Personne{
 	private String nomMagasin;
 	@Column(name="affinite")
 	private int affinite;
-	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
-	@JoinTable(name="questions",joinColumns = @JoinColumn(name="idMarchand"),inverseJoinColumns = @JoinColumn(name="idQuestion"))
+	//Plusieurs marchands ne peuvent pas être affectés à une même question
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "marchand")
+	//@JoinTable(name="questions",joinColumns = @JoinColumn(name="idMarchand"),inverseJoinColumns = @JoinColumn(name="idQuestion"))
 	private List<Question> questions;
 	
 	public Marchand() {}
 	
-	public Marchand(String nom, int solde, List<Item> inventaire, String nomMagasin, int affinite, List<Question> questions) {
+	//La liste de questions n'est plus chargée dans le constructeur du marchand
+	public Marchand(String nom, int solde, List<Item> inventaire, String nomMagasin, int affinite) {
 		super(nom, solde, inventaire);
 		this.nomMagasin = nomMagasin;
 		this.affinite = affinite;
-		this.questions = questions;
 	}
 	
-	public Marchand(int id, String nom, int solde, List<Item> inventaire, String nomMagasin, int affinite, List<Question> questions) {
+	public Marchand(int id, String nom, int solde, List<Item> inventaire, String nomMagasin, int affinite) {
 		super(id,nom, solde, inventaire);
 		this.nomMagasin = nomMagasin;
 		this.affinite = affinite;
-		this.questions = questions;
 	}
 	
 	public String getNomMagasin() {
@@ -62,8 +60,8 @@ public class Marchand extends Personne{
 
 	@Override
 	public String toString() {
-		return "Marchand [nomMagasin=" + nomMagasin + ", affinite=" + affinite + ", questions=" + questions + ", id="
-				+ id + ", nom=" + nom + ", solde=" + solde + ", inventaire=" + inventaire + "]";
+		return "Marchand [nomMagasin=" + nomMagasin + ", affinite=" + affinite + ", id=" + id + ", nom=" + nom
+				+ ", solde=" + solde + "]";
 	}
 	
 }
