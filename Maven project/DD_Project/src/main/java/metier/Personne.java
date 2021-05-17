@@ -76,8 +76,8 @@ public abstract class Personne {
     public void setInventaire(List<Item> inventaire) {
         this.inventaire = inventaire;
     }
-    
-    @Override
+
+	@Override
 	public String toString() {
 		return "Personne [id=" + id + ", nom=" + nom + ", solde=" + solde + ", inventaire=" + inventaire + "]";
 	}

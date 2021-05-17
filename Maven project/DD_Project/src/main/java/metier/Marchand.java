@@ -60,9 +60,10 @@ public class Marchand extends Personne{
 
 	@Override
 	public String toString() {
-		return "Marchand [nomMagasin=" + nomMagasin + ", affinite=" + affinite + ", id=" + id + ", nom=" + nom
-				+ ", solde=" + solde + "]";
+		return id + " - " + nomMagasin +" de "+  nom ;
 	}
+
+	
 	
 }
 
