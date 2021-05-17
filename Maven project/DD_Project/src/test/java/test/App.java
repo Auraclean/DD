@@ -107,7 +107,7 @@ public class App {
 			//Montre les objectifs liés à la classe choisie
 			System.out.println("Voici les objets correspondant à cette classe :");
 			//A modifier, il y a trop d'infos sur les items
-			System.out.println( classe.getObjectifs() ); 
+			for( Item i : classe.getObjectifs() ) System.out.println(i);
 			choix = saisieString("Es-tu certain de ton choix ? (Oui/Non)");
 		} while( !(choix.equalsIgnoreCase("Oui")) );
 		ct.getP().setJob(classe);
@@ -296,7 +296,8 @@ public class App {
 			if(m.getAffinite()>66) valeur=valeur-it.getValeur()*m.getModPrix();
 			if(m.getAffinite()>80) valeur=valeur-it.getValeur()*m.getModPrix();
 			int val = (int) Math.round(valeur);
-			System.out.println("Id :"+ it.getId() +", Nom : "+ it.getNom() +", Prix : "+ val +" PO");
+			System.out.println(it.getId()+" - " + it.getNom()+": "+ val +" PO");
+			
 		}
 		System.out.println("Y a-t-il quelque chose que tu aimerais acheter ?");
 		System.out.println("1 - Acheter un objet");
