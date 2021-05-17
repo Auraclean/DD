@@ -333,7 +333,7 @@ public class App {
 	}
 
 	public static void showInventaire() {
-		System.out.println("Vous possédez "+ ct.getP().getSolde() );
+		System.out.println("Vous possédez "+ ct.getP().getSolde() +"PO.");
 		System.out.println( ct.getP().getInventaire() );
 
 		System.out.println("Que faire ?");
@@ -443,36 +443,76 @@ public class App {
 
 	public static void showInventaireMarchand(Marchand m) {
 		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
+		System.out.println("Voici tout les objets en ma possession :");
 		for (Item it : m.getInventaire() )
 			System.out.println("Id :"+ it.getId() +", Nom : "+ it.getNom() +", Prix : "+ it.getValeur() +" PO");
-		acheter(m);
+		System.out.println("Y a-t-il quelque chose que tu aimerais acheter ?");
+		System.out.println("1 - Acheter un objet");
+		System.out.println("2 - Retour");
+
+		int choix = saisieInt("");
+		switch(choix) {
+		case 1 :
+			int id_objet = saisieInt("Sélectionner l'Id de l'objet à acheter :");
+			acheter(m, id_objet);break;
+		case 2 : menuMarchand(m);break;
+		}
+		showInventaireMarchand(m);
 	}
 
-	public static void acheter(Marchand m) {
-		int solde= ct.getP().getSolde();
-		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
-		for (Item it : m.getInventaire() ) {
-			Item ValeurItem=ct.getDaoItem().findById(it.getValeur());
-			int prix=ValeurItem.getValeur();
-			int soldeRestant=solde-prix;
+	public static void acheter(Marchand m, int id_objet) {
+		//Sans doute une erreur là dedans
+		Item it = ct.getDaoItem().findById(id_objet);
+		if( ct.getP().getSolde() < it.getValeur() ) {
+			System.out.println("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+			showInventaireMarchand(m);
+		}
+		if( m.getInventaire().contains(it) ) {
+			//m.setInventaire();
+			m.getInventaire().remove(it);
+			ct.getP().getInventaire().add(it);
+			m.setSolde(m.getSolde() + it.getValeur());
+			ct.getP().setSolde( ct.getP().getSolde() - it.getValeur() );
 		}
 	}
 
 	public static void vendreObjet(Marchand m) {
 		for (Item it : ct.getP().getInventaire() )
 			//Attention, il faut modifier le prix selon le marchand...
-			System.out.println( it.getNom() +", Prix : "+ it.getValeur() +" PO");
-		//Yann
-		vendre(m);
+			System.out.println("Id :"+ it.getId() +", Nom : "+ it.getNom() +", Prix : "+ it.getValeur() +" PO");
+		System.out.println("Y a-t-il quelque chose que tu voudrais me vendre ?");
+		System.out.println("1 - Vendre un objet");
+		System.out.println("2 - Retour");
+
+		int choix = saisieInt("");
+		switch(choix) {
+		case 1 :
+			int id_objet = saisieInt("Sélectionner l'Id de l'objet à vendre :");
+			vendre(m, id_objet);break;
+		case 2 : menuMarchand(m);break;
+		}
+		vendreObjet(m);
 	}
 
-	public static void vendre(Marchand m) {
-		int solde= ct.getP().getSolde();
-		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
-		for (Item it : m.getInventaire() ) {
-			Item ValeurItem=ct.getDaoItem().findById(it.getValeur());
-			int prix=ValeurItem.getValeur();
-			int soldeRestant=solde+prix;
+	public static void vendre(Marchand m, int id_objet) {
+		//pb...
+		Item it = ct.getDaoItem().findById(id_objet);
+		List<Item> inv = ct.getP().getInventaire();
+		
+		for( Item i : ct.getP().getInventaire() ) System.out.println(i);
+		System.out.println(ct.getP().getInventaire().contains(it));
+		if( ct.getP().getInventaire().contains(it) ) {
+			// Valeur de l'objet à modifier selon l'affinité
+			if( m.getSolde() < it.getValeur() ) {
+				System.out.println("Désolé, je n'ai pas assez d'argent pour ça. J'ai une famille à nourrir.");
+				vendreObjet(m);
+			}
+			inv.remove(it);
+			ct.getP().setInventaire(inv);
+			ct.getP().setSolde(m.getSolde() + it.getValeur());
+			m.setSolde( m.getSolde() - it.getValeur() );
+		}else {
+			System.out.println("CA MARCHE PAS");
 		}
 	}
 
