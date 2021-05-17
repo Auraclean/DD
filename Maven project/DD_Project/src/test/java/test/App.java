@@ -268,7 +268,8 @@ public class App {
 
 		do {
 			//Montre les classes disponibles
-			System.out.println( ct.getDaoArc().findAll() ); 
+			for( Archetype a : ct.getDaoArc().findAll())
+				System.out.println(a);
 			classe = ct.getDaoArc().findById(saisieInt(""));
 			//Montre les objectifs liés à la classe choisie
 			System.out.println("Voici les objets correspondant à cette classe :");
