@@ -402,7 +402,11 @@ public class App {
 			for( Reponse r : q.getReponses() ) {
 				i++;
 				System.out.println( (i+1) +"- "+ r.getLibelle() );
-				rep[i] = r.getId(); 
+				rep[i] = r.getId();	
+			}
+			boolean question =true;
+			if (question = true) {
+				ct.getDaoQues().delete(q);
 			}
 			int choix = saisieInt("");
 			//Trouver un moyen de sélectionner une réponse
