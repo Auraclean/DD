@@ -5,6 +5,7 @@ import javax.persistence.Persistence;
 
 import dao.DAOArchetype;
 import dao.DAOItem;
+import dao.DAOJoueur;
 import dao.DAOMarchand;
 import dao.DAOQuestion;
 import dao.DAOReponse;
@@ -24,6 +25,7 @@ public class Context {
 	private Marchand m = new Marchand(); 
 	private Archetype classe = new Archetype();
 	
+	private DAOJoueur daoP = new DAOJoueur();
 	private DAOArchetype daoArc = new DAOArchetype();
 	private DAOItem daoItem = new DAOItem();
 	private DAOMarchand daoMar = new DAOMarchand();
@@ -73,6 +75,14 @@ public class Context {
 
 	public DAOArchetype getDaoArc() {
 		return daoArc;
+	}
+
+	public DAOJoueur getDaoP() {
+		return daoP;
+	}
+
+	public void setDaoP(DAOJoueur daoP) {
+		this.daoP = daoP;
 	}
 
 	public void setDaoArc(DAOArchetype daoArc) {

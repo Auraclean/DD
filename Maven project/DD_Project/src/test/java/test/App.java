@@ -259,6 +259,7 @@ public class App {
 		System.out.println("Tu ne t'attendais tout de même pas à ce qu'elle contienne quelque chose ! *rire*");
 		System.out.println("En revanche, voici un sac avec des objets choisis par mes soins.");
 		donneInventaire();
+		ct.setP( ct.getDaoP().save( ct.getP() ) );
 	}
 
 	public static void choisirClasse() {
@@ -316,7 +317,6 @@ public class App {
 		case 4 : pause();break;
 		}
 		menu();
-
 	}
 
 	/* ------------------------------------ Choisir Marchand ------------------------------------ */
@@ -510,6 +510,8 @@ public class App {
 	}
 
 	public static void vendre(Marchand m, int id_objet) {
+		Joueur j = ct.getDaoP().findByIdWithInventaire( ct.getP().getId() );
+		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
 		Item it = ct.getDaoItem().findById(id_objet);
 		double valeur = it.getValeur();
 		if(m.getAffinite()<=25) valeur=valeur-it.getValeur()*0.1;
@@ -517,7 +519,7 @@ public class App {
 		if(m.getAffinite()>50) valeur=valeur+it.getValeur()*0.1;
 		if(m.getAffinite()>75) valeur=valeur+it.getValeur()*0.1;
 		int val = (int) Math.round(valeur);
-		List<Item> inv_joueur = ct.getP().getInventaire();
+		List<Item> inv_joueur = j.getInventaire();
 		List<Item> inv_marchand = m.getInventaire();
 		if( ct.getP().getInventaire().contains(it) ) {
 			// Valeur de l'objet à modifier selon l'affinité
@@ -526,12 +528,15 @@ public class App {
 				vendreObjet(m);
 			}
 			//retire l'item de l'inventaire du joueur + gère son argent
-			inv_joueur.remove(it); ct.getP().setInventaire(inv_joueur);
-			ct.getP().setSolde( ct.getP().getSolde() + val);
+			inv_joueur.remove(it); j.setInventaire(inv_joueur);
+			j.setSolde( j.getSolde() + val);
 			//ajoute l'item à l'inventaire du marchand + gère son argent
-			inv_marchand.add(it); m.setInventaire(inv_marchand);
+			inv_marchand.add(it);
+			m.setInventaire(inv_marchand);
 			m.setSolde( m.getSolde() - val );
+			//Problème au niveau du save marchand quand il y a 2 exemplaires du même objet (1 dans le joueur, 1 dans le marchand)
 			ct.getDaoMar().save(m);
+			ct.getDaoP().save(j);
 		}
 	}
 
