@@ -270,7 +270,7 @@ public class App {
 			//Montre les classes disponibles
 			for( Archetype a : ct.getDaoArc().findAll())
 				System.out.println(a);
-			classe = ct.getDaoArc().findById(saisieInt(""));
+			classe = ct.getDaoArc().findById( saisieInt("") );
 			//Montre les objectifs liés à la classe choisie
 			System.out.println("Voici les objets correspondant à cette classe :");
 			//A modifier, il y a trop d'infos sur les items
