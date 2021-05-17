@@ -116,6 +116,11 @@ public class App {
 	public static void donneInventaire() {
 		List<Item> allItems = ct.getDaoItem().findAll();
 		List<Item> inventaire = new ArrayList<Item>();
+		List<Item> catalogue = new ArrayList<Item>();
+		List<Marchand> marchands = ct.getDaoMar().findAll();
+		for (Marchand m : marchands ) {
+			catalogue.addAll(m.getInventaire());
+		}
 		Item it = null;
 		List<Item> obj = ct.getP().getJob().getObjectifs();
 
@@ -124,7 +129,7 @@ public class App {
 			do {
 				Random rand = new Random();
 				it = allItems.get( rand.nextInt(allItems.size()) );
-			} while( obj.contains(it) || inventaire.contains(it) );
+			} while( obj.contains(it) || inventaire.contains(it) || catalogue.contains(it) );
 			inventaire.add(it);
 		}
 		ct.getP().setInventaire(inventaire);
@@ -240,7 +245,8 @@ public class App {
 		// ajouter un attribut aux questions pour vérifier si elle a déjà été posée.
 		// hashMap pour gérer les questions.
 		for( Question q : questions ) {
-			if(q.isRepondue()) continue;
+			//ne marche pas
+			if(q.isRepondue()) {System.out.println("tu as deja repondu"); continue;}
 			int i = -1;
 			System.out.println( q.getLibelle() );
 			q.setRepondue(true);

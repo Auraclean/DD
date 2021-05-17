@@ -43,6 +43,32 @@ public class Initialisation {
 		Item i23 	= new Item("Fleches", "Vendues par 12", 12);
 		Item i24 	= new Item("Piege a fosse", "Les monstres tombent dans un trou et peuvent etre captures", 28);
 		Item i25 	= new Item("Corne de Chasse", "La meilleure arme pour tuer des dragons en musique", 66);
+		Item i26 	= new Item("Morpho Hache", "Pour tuer des dragons avec des décharges élementaires", 77);
+		Item i27 	= new Item("Volto Hache", "Pour tuer des dragons avec des super décharges élementaires amplifiées", 80);
+		Item i28 	= new Item("Grande Epee", "Pour tuer des dragons comme Guts", 35);
+		Item i29 	= new Item("Epee Bouclier", "Sword and Shield, SnS, sneeesss, Swag and Style!", 47);
+		Item i30 	= new Item("Double Lames", "Pour les edge lords", 36);
+		Item i31 	= new Item("Longue Epée", "The weeb stick", 38);
+		Item i32 	= new Item("Insecto-Glaive", "Le french Stick, Je SuiS mOnté!", 55);
+		Item i33 	= new Item("Marteau", "Corne de chasse inférieure, tourbilol", 34);
+		Item i34 	= new Item("Lance Canon", "Une lance avec un flingue encore plus lent qu'une lance", 56);
+		Item i35	= new Item("Lance", "L'arme la moins aimée du jeu alors que c'est pas la plus défensive", 49);
+		Item i36 	= new Item("L'Arc", "Pour les indécis entre le CaC et la distance", 18);
+		Item i37 	= new Item("Fusarbalète Lourd", "La meilleure arme pour tuer des dragons en speedrun", 69);
+		Item i38 	= new Item("Fusarbalète Léger", "La meilleure arme pour tuer des dragons à distance de fragile", 63);
+		Item i39 	= new Item("Piège à Foudre", "Un foudrinsecte permet de paralyser une créature à l'intérieur", 16);
+		Item i40 	= new Item("Carnet de Notes", "Pour prendre des notes, duh!", 10);
+		Item i41 	= new Item("Stylo à encre", "Pour écrire tête de noeud!", 7);
+		Item i42 	= new Item("Plume et Encrier", "Pour encrer ta légende!", 12);
+		Item i43 	= new Item("Papyrus", "Pour laisser des messages aux dieux, se lit 'papier russe'...", 15);
+		Item i44 	= new Item("Baguette Magique", "Pour jouer aux apprentis Sorciers!", 34);
+		Item i45 	= new Item("Sceau", "Peut contenir des trucs liquides et te faire voler", 24);
+		Item i46 	= new Item("Lyre", "Inutile au possible mais peut faire du bruit", 83);
+		Item i47 	= new Item("Canard", "Adorable, protéger le au péril de votre vie", 88);
+		Item i48 	= new Item("Chat", "Mignon mais peut disparaitre de votre inventaire sans raison...", 53);
+		Item i49 	= new Item("Nintendo Switch", "Pour jouer à des jeux plus intéressants que celui-ci", 100);
+		Item i50 	= new Item("PC", "Félicitations, vous avez gagné car vous pouvez hacker ce jeu à la noix...ou pas", 200);
+		
 
 		//Enregistre les objets
 		// mettre le i1 = au début évite d'avoir des objets en plusieurs exemplaires
@@ -71,6 +97,32 @@ public class Initialisation {
 		i23 = ct.getDaoItem().save(i23);
 		i24 = ct.getDaoItem().save(i24);
 		i25 = ct.getDaoItem().save(i25);
+		i26 = ct.getDaoItem().save(i26);
+		i27 = ct.getDaoItem().save(i27);
+		i28 = ct.getDaoItem().save(i28);
+		i29 = ct.getDaoItem().save(i29);
+		i30 = ct.getDaoItem().save(i30);
+		i31 = ct.getDaoItem().save(i31);
+		i32 = ct.getDaoItem().save(i32);
+		i33 = ct.getDaoItem().save(i33);
+		i34 = ct.getDaoItem().save(i34);
+		i35 = ct.getDaoItem().save(i35);
+		i36 = ct.getDaoItem().save(i36);
+		i37 = ct.getDaoItem().save(i37);
+		i38 = ct.getDaoItem().save(i38);
+		i39 = ct.getDaoItem().save(i39);
+		i40 = ct.getDaoItem().save(i40);
+		i41 = ct.getDaoItem().save(i41);
+		i42 = ct.getDaoItem().save(i42);
+		i43 = ct.getDaoItem().save(i43);
+		i44 = ct.getDaoItem().save(i44);
+		i45 = ct.getDaoItem().save(i45);
+		i46 = ct.getDaoItem().save(i46);
+		i47 = ct.getDaoItem().save(i47);
+		i48 = ct.getDaoItem().save(i48);
+		i49 = ct.getDaoItem().save(i49);
+		i50 = ct.getDaoItem().save(i50);
+		
 
 		//Creation des listes correspondant aux Archetypes
 		List<Item> objectifSorcier = new ArrayList<Item>();
