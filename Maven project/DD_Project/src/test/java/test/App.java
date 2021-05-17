@@ -1,5 +1,9 @@
 package test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,7 +14,9 @@ import util.Context;
 
 public class App {
 
+	static LocalDateTime start = LocalDateTime.now();
 	static Context ct = Context.get_instance();
+	
 
 	/* ------------------------------------ Fonctions d'entrées au clavier ------------------------------------ */
 	public static String saisieString(String msg) 
@@ -355,8 +361,14 @@ public class App {
 	}
 
 	/* ------------------------------------ Pause ------------------------------------ */
+	
+	
+        
+    
 	public static void pause() {
 		System.out.println("--- PAUSE ---");
+		LocalDateTime pause = LocalDateTime.now();
+		System.out.println(Duration .between(start, pause).toMinutes()+" minutes "+ Duration .between(start, pause).toSecondsPart()+" secondes");
 		// afficher le timer (temps de jeu)?
 		System.out.println("1 - Reprendre le jeu");
 		System.out.println("2 - Réinitialiser la partie");
@@ -485,6 +497,8 @@ public class App {
 		System.out.println("");
 		System.out.println("*Bravo, vous avez accompli vos objectifs avec brio !*");
 		System.exit(0);
+		LocalDateTime end = LocalDateTime.now();
+		System.out.println(Duration .between(start, end).toMinutes()+" minutes "+ Duration .between(start, end).toSecondsPart()+" secondes");
 	}
 	
 }
