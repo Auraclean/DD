@@ -192,11 +192,7 @@ public class App {
 			if( objet.equalsIgnoreCase( it.getNom() ) ) System.out.println( it.getDescription() ); 
 	}
 
-	/* ------------------------------------ Pause ------------------------------------ */
-	
-	
-        
-    
+	/* ------------------------------------ Pause ------------------------------------ */   
 	public static void pause() {
 		System.out.println("--- PAUSE ---");
 		LocalDateTime pause = LocalDateTime.now();
@@ -234,6 +230,8 @@ public class App {
 		}
 		menuMarchand(m);
 	}
+	
+	
 
 	public static void discuter(Marchand m) {
 		int[] rep = new int[3];
@@ -245,7 +243,6 @@ public class App {
 			if(q.isRepondue()) continue;
 			int i = -1;
 			System.out.println( q.getLibelle() );
-			//Une fois rentré dans cette boucle la question est consideree comme repondue
 			q.setRepondue(true);
 			for( Reponse r : q.getReponses() ) {
 				i++;
@@ -263,7 +260,8 @@ public class App {
 				System.out.println("Mauvaise réponse.");
 				m.setAffinite(m.getAffinite()-15);
 			}
-			ct.getDaoMar().save(m);
+			m = ct.getDaoMar().save(m);
+			q = ct.getDaoQues().save(q);
 			//Il faut trouver un moyen de stocker le nombre de questions restantes pour reprendre si le joueur a envie 
 			// LinkedList pour les questions ?
 			String papoter = saisieString("Continuer de discuter ? (Oui/Non)");
@@ -392,8 +390,8 @@ public class App {
 			m.setInventaire(inv_marchand);
 			m.setSolde( m.getSolde() - val );
 			//Problème au niveau du save marchand quand il y a 2 exemplaires du même objet (1 dans le joueur, 1 dans le marchand)
-			ct.getDaoMar().save(m);
-			ct.getDaoP().save(j);
+			m = ct.getDaoMar().save(m);
+			ct.setP( ct.getDaoP().save(j) );
 		}
 	}
 

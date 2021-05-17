@@ -2,7 +2,6 @@ package metier;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -15,8 +14,8 @@ public class Marchand extends Personne{
 	@Column(name="affinite")
 	private int affinite;
 	private Double modPrix;
-	//Plusieurs marchands ne peuvent pas être affectés à une même question
-	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "marchand")
+	//Plusieurs marchands ne peuvent pas être affectés à une même question, pas de cascade avec mappedBy
+	@OneToMany(mappedBy = "marchand")
 	//@JoinTable(name="questions",joinColumns = @JoinColumn(name="idMarchand"),inverseJoinColumns = @JoinColumn(name="idQuestion"))
 	private List<Question> questions;
 	
