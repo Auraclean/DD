@@ -107,7 +107,7 @@ public class App {
 			//Montre les objectifs liés à la classe choisie
 			System.out.println("Voici les objets correspondant à cette classe :");
 			//A modifier, il y a trop d'infos sur les items
-			System.out.println( classe.getObjectifs() ); 
+			for( Item i : classe.getObjectifs() ) System.out.println(i);
 			choix = saisieString("Es-tu certain de ton choix ? (Oui/Non)");
 		} while( !(choix.equalsIgnoreCase("Oui")) );
 		ct.getP().setJob(classe);
