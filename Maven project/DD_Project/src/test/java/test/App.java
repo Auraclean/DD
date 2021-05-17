@@ -216,4 +216,23 @@ public class App {
 		
 	}
 	
+	public static void acheter(Marchand m) {
+		int solde= ct.getP().getSolde();
+		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
+		for (Item it : m.getInventaire() ) {
+			Item ValeurItem=ct.getDaoItem().findById(it.getValeur());
+			int prix=ValeurItem.getValeur();
+			int soldeRestant=solde-prix;
+		}
+	}
+
+	public static void vendre(Marchand m) {
+		int solde= ct.getP().getSolde();
+		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
+		for (Item it : m.getInventaire() ) {
+			Item ValeurItem=ct.getDaoItem().findById(it.getValeur());
+			int prix=ValeurItem.getValeur();
+			int soldeRestant=solde+prix;
+		}
+	}
 }
