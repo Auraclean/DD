@@ -91,7 +91,7 @@ public class Item {
 
 	@Override
     public String toString() {
-        return  id + " - "+  nom + ": " +description;
+        return  id + " - "+  nom ;
         
     }
 

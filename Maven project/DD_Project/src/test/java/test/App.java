@@ -296,7 +296,7 @@ public class App {
 			if(m.getAffinite()>66) valeur=valeur-it.getValeur()*m.getModPrix();
 			if(m.getAffinite()>80) valeur=valeur-it.getValeur()*m.getModPrix();
 			int val = (int) Math.round(valeur);
-			System.out.println(it.getId()+" - " + it.getNom()+": "+ it.getDescription() +", Prix : "+ val +" PO");
+			System.out.println(it.getId()+" - " + it.getNom()+": " +", Prix : "+ val +" PO");
 			
 		}
 		System.out.println("Y a-t-il quelque chose que tu aimerais acheter ?");
