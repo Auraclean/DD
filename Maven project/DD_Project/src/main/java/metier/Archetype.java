@@ -64,7 +64,7 @@ public class Archetype {
 	
 	@Override
 	public String toString() {
-		return "Archetype [id=" + id + ", nom=" + nom + ", objectifs=" + objectifs + "]";
+		return id + " - " + nom;
 	}
 }
 
