@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import metier.Joueur;
+import metier.Marchand;
 import util.Context;
 
 
@@ -41,4 +42,13 @@ public class DAOJoueur implements IDAO<Joueur,Integer>{
 		em.getTransaction().commit();
 		em.close();
 	}	
+	
+	public Joueur findByIdWithInventaire(int id) {
+		EntityManager em = Context.get_instance().getEmf().createEntityManager();
+		Query query = em.createQuery("select distinct j from Joueur j join fetch j.inventaire where j.id =:id", Joueur.class);
+		query.setParameter("id", id);
+		Joueur myJoueur = (Joueur) query.getSingleResult();
+		em.close();
+		return myJoueur;
+	}
 }
