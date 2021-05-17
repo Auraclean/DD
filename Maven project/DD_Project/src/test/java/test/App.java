@@ -286,7 +286,7 @@ public class App {
 			do {
 				Random rand = new Random();
 				it = allItems.get( rand.nextInt(allItems.size()) );
-			} while( obj.contains(it) ||  inventaire.contains(it) );
+			} while( obj.contains(it) || inventaire.contains(it) );
 			inventaire.add(it);
 		}
 		ct.getP().setInventaire(inventaire);
@@ -461,17 +461,20 @@ public class App {
 	}
 
 	public static void acheter(Marchand m, int id_objet) {
-		//Sans doute une erreur là dedans
 		Item it = ct.getDaoItem().findById(id_objet);
-		if( ct.getP().getSolde() < it.getValeur() ) {
-			System.out.println("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
-			showInventaireMarchand(m);
-		}
+		List<Item> inv_marchand = m.getInventaire();
+		List<Item> inv_joueur = ct.getP().getInventaire();
+		
 		if( m.getInventaire().contains(it) ) {
-			//m.setInventaire();
-			m.getInventaire().remove(it);
-			ct.getP().getInventaire().add(it);
-			m.setSolde(m.getSolde() + it.getValeur());
+			if( ct.getP().getSolde() < it.getValeur() ) {
+				System.out.println("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+				showInventaireMarchand(m);
+			}
+			//retire l'item de l'inventaire du marchand + gère son argent
+			inv_marchand.remove(it); m.setInventaire(inv_marchand);
+			m.setSolde( m.getSolde() + it.getValeur() );
+			//ajoute l'item à l'inventaire du joueur + gère son argent
+			inv_joueur.add(it); ct.getP().setInventaire(inv_joueur);
 			ct.getP().setSolde( ct.getP().getSolde() - it.getValeur() );
 		}
 	}
@@ -495,24 +498,23 @@ public class App {
 	}
 
 	public static void vendre(Marchand m, int id_objet) {
-		//pb...
 		Item it = ct.getDaoItem().findById(id_objet);
-		List<Item> inv = ct.getP().getInventaire();
-		
-		for( Item i : ct.getP().getInventaire() ) System.out.println(i);
-		System.out.println(ct.getP().getInventaire().contains(it));
+		List<Item> inv_joueur = ct.getP().getInventaire();
+		List<Item> inv_marchand = m.getInventaire();
+		int val = it.getValeur();
+		// gère ta merde Nicola
 		if( ct.getP().getInventaire().contains(it) ) {
 			// Valeur de l'objet à modifier selon l'affinité
 			if( m.getSolde() < it.getValeur() ) {
 				System.out.println("Désolé, je n'ai pas assez d'argent pour ça. J'ai une famille à nourrir.");
 				vendreObjet(m);
 			}
-			inv.remove(it);
-			ct.getP().setInventaire(inv);
-			ct.getP().setSolde(m.getSolde() + it.getValeur());
+			//retire l'item de l'inventaire du joueur + gère son argent
+			inv_joueur.remove(it); ct.getP().setInventaire(inv_joueur);
+			ct.getP().setSolde( ct.getP().getSolde() + it.getValeur() );
+			//ajoute l'item à l'inventaire du marchand + gère son argent
+			inv_marchand.add(it); m.setInventaire(inv_marchand);
 			m.setSolde( m.getSolde() - it.getValeur() );
-		}else {
-			System.out.println("CA MARCHE PAS");
 		}
 	}
 
