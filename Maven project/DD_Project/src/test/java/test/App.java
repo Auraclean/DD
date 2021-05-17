@@ -2,8 +2,6 @@ package test;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -518,8 +516,6 @@ public class App {
 		if(m.getAffinite()>50) valeur=valeur+it.getValeur()*0.1;
 		if(m.getAffinite()>75) valeur=valeur+it.getValeur()*0.1;
 		int val = (int) Math.round(valeur);
-		for( Item i : ct.getP().getInventaire() ) System.out.println(i);
-		System.out.println(ct.getP().getInventaire().contains(it));
 		List<Item> inv_joueur = ct.getP().getInventaire();
 		List<Item> inv_marchand = m.getInventaire();
 		if( ct.getP().getInventaire().contains(it) ) {
