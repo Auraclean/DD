@@ -27,6 +27,7 @@ public class Question {
 	//Attention, cet attribut permet de gérer à quel marchand est attribuée cette question
 	@ManyToOne
 	private Marchand marchand; 
+	private boolean repondue;
 	
 	public Question() {}
 	
@@ -34,6 +35,7 @@ public class Question {
 		this.libelle = libelle;
 		this.reponses = reponses;
 		this.marchand = marchand;
+		this.repondue = false;
 	}
 
 	public int getId() {
@@ -68,9 +70,18 @@ public class Question {
 		this.marchand = marchand;
 	}
 
+	public boolean isRepondue() {
+		return repondue;
+	}
+
+	public void setRepondue(boolean repondue) {
+		this.repondue = repondue;
+	}
+
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", libelle=" + libelle + ", reponses=" + reponses + "]";
+		return "Question [id=" + id + ", libelle=" + libelle + ", reponses=" + reponses + ", marchand=" + marchand
+				+ ", repondue=" + repondue + "]";
 	}
 	
 }

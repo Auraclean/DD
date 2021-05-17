@@ -409,27 +409,28 @@ public class App {
 		// ajouter un attribut aux questions pour vérifier si elle a déjà été posée.
 		// hashMap pour gérer les questions.
 		for( Question q : questions ) {
+			if(q.isRepondue()) continue;
 			int i = -1;
 			System.out.println( q.getLibelle() );
+			//Une fois rentré dans cette boucle la question est consideree comme repondue
+			q.setRepondue(true);
 			for( Reponse r : q.getReponses() ) {
 				i++;
 				System.out.println( (i+1) +"- "+ r.getLibelle() );
 				rep[i] = r.getId();	
-			}
-			boolean question =true;
-			if (question = true) {
-				ct.getDaoQues().delete(q);
 			}
 			int choix = saisieInt("");
 			//Trouver un moyen de sélectionner une réponse
 			Reponse rep_player = q.getReponses().get( choix-1 );
 			if( rep_player.isValid() ) {
 				System.out.println("Bonne réponse !");
+				m.setAffinite(m.getAffinite()+15);
 			}
 			else {
 				System.out.println("Mauvaise réponse.");
+				m.setAffinite(m.getAffinite()-15);
 			}
-
+			ct.getDaoMar().save(m);
 			//Il faut trouver un moyen de stocker le nombre de questions restantes pour reprendre si le joueur a envie 
 			// LinkedList pour les questions ?
 			String papoter = saisieString("Continuer de discuter ? (Oui/Non)");
@@ -511,22 +512,29 @@ public class App {
 
 	public static void vendre(Marchand m, int id_objet) {
 		Item it = ct.getDaoItem().findById(id_objet);
+		double valeur = it.getValeur();
+		if(m.getAffinite()<=25) valeur=valeur-it.getValeur()*0.1;
+		if(m.getAffinite()<=50) valeur=valeur-it.getValeur()*0.1;
+		if(m.getAffinite()>50) valeur=valeur+it.getValeur()*0.1;
+		if(m.getAffinite()>75) valeur=valeur+it.getValeur()*0.1;
+		int val = (int) Math.round(valeur);
+		for( Item i : ct.getP().getInventaire() ) System.out.println(i);
+		System.out.println(ct.getP().getInventaire().contains(it));
 		List<Item> inv_joueur = ct.getP().getInventaire();
 		List<Item> inv_marchand = m.getInventaire();
-		int val = it.getValeur();
-		// gère ta merde Nicola
 		if( ct.getP().getInventaire().contains(it) ) {
 			// Valeur de l'objet à modifier selon l'affinité
-			if( m.getSolde() < it.getValeur() ) {
+			if( m.getSolde() < val ) {
 				System.out.println("Désolé, je n'ai pas assez d'argent pour ça. J'ai une famille à nourrir.");
 				vendreObjet(m);
 			}
 			//retire l'item de l'inventaire du joueur + gère son argent
 			inv_joueur.remove(it); ct.getP().setInventaire(inv_joueur);
-			ct.getP().setSolde( ct.getP().getSolde() + it.getValeur() );
+			ct.getP().setSolde( ct.getP().getSolde() + val);
 			//ajoute l'item à l'inventaire du marchand + gère son argent
 			inv_marchand.add(it); m.setInventaire(inv_marchand);
-			m.setSolde( m.getSolde() - it.getValeur() );
+			m.setSolde( m.getSolde() - val );
+			ct.getDaoMar().save(m);
 		}
 	}
 
