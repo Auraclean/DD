@@ -440,14 +440,18 @@ public class App {
 	public static void showInventaireMarchand(Marchand m) {
 		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
 		for (Item it : m.getInventaire() )
-			System.out.println( it.getNom() +", Prix : "+ it.getValeur() +" PO");
-		//Yann
-		acheter();
+			System.out.println("Id :"+ it.getNom() +", Prix : "+ it.getValeur() +" PO");
+		acheter(m);
 	}
 
-	public static void acheter() {
-		// TODO Auto-generated method stub
-
+	public static void acheter(Marchand m) {
+		int solde= ct.getP().getSolde();
+		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
+		for (Item it : m.getInventaire() ) {
+			Item ValeurItem=ct.getDaoItem().findById(it.getValeur());
+			int prix=ValeurItem.getValeur();
+			int soldeRestant=solde-prix;
+		}
 	}
 
 	public static void vendreObjet(Marchand m) {
@@ -455,12 +459,17 @@ public class App {
 			//Attention, il faut modifier le prix selon le marchand...
 			System.out.println( it.getNom() +", Prix : "+ it.getValeur() +" PO");
 		//Yann
-		vendre();
+		vendre(m);
 	}
 
-	public static void vendre() {
-		// TODO Auto-generated method stub
-
+	public static void vendre(Marchand m) {
+		int solde= ct.getP().getSolde();
+		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
+		for (Item it : m.getInventaire() ) {
+			Item ValeurItem=ct.getDaoItem().findById(it.getValeur());
+			int prix=ValeurItem.getValeur();
+			int soldeRestant=solde+prix;
+		}
 	}
 
 	/* ------------------------------------ Ecran de victoire ------------------------------------ */
@@ -473,25 +482,5 @@ public class App {
 		System.out.println("*Bravo, vous avez accompli vos objectifs avec brio !*");
 		System.exit(0);
 	}
-
 	
-	public static void acheter(Marchand m) {
-		int solde= ct.getP().getSolde();
-		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
-		for (Item it : m.getInventaire() ) {
-			Item ValeurItem=ct.getDaoItem().findById(it.getValeur());
-			int prix=ValeurItem.getValeur();
-			int soldeRestant=solde-prix;
-		}
-	}
-
-	public static void vendre(Marchand m) {
-		int solde= ct.getP().getSolde();
-		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
-		for (Item it : m.getInventaire() ) {
-			Item ValeurItem=ct.getDaoItem().findById(it.getValeur());
-			int prix=ValeurItem.getValeur();
-			int soldeRestant=solde+prix;
-		}
-	}
 }
