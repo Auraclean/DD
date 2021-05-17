@@ -72,10 +72,10 @@ public class App {
 	}
 
 	/* ------------------------------------ Jouer ------------------------------------ */
-	// créer le joueur, lui explique les régles 
+	// créer le joueur, lui explique les règles 
 	public static void jouer() {
 		creationJoueur();
-		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de pièces d'or. ");
+		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de pièces d'or.");
 		System.out.println("Ce n'est qu'une fois ce but atteint qu'il te sera possible de commencer ta propre aventure dans ce monde !");
 		System.out.println("A présent, va et montre-moi tes capacités de marchand.");
 		menu();
@@ -83,8 +83,9 @@ public class App {
 
 	// Initialise les attributs (nom, classe, solde, inventaire) du joueur 
 	public static void creationJoueur() {
-		ct.getP().setNom(saisieString("Quel est ton nom ?"));
+		ct.getP().setNom(saisieString("Comment t'appelles-tu ?"));
 		choisirClasse();
+		System.out.println("");
 		System.out.println("Voici ta bourse, aventurier !");
 		ct.getP().setSolde(0);
 		System.out.println("*Vous ouvrez la bourse et constatez que cette dernière est vide.*");
@@ -97,20 +98,23 @@ public class App {
 	public static void choisirClasse() {
 		String choix = null;
 		Archetype classe = null;
-		System.out.println("Avant tout, quelle est ta classe ?");
-
 		do {
+			System.out.println("Avant tout, quelle est ta classe ?");
 			//Montre les classes disponibles
-			for( Archetype a : ct.getDaoArc().findAll())
-				System.out.println(a);
+			afficherList( ct.getDaoArc().findAll() );
+			System.out.println("");
 			classe = ct.getDaoArc().findById( saisieInt("") );
 			//Montre les objectifs liés à la classe choisie
 			System.out.println("Voici les objets correspondant à cette classe :");
-			//A modifier, il y a trop d'infos sur les items
-			for( Item i : classe.getObjectifs() ) System.out.println(i);
+			afficherList( classe.getObjectifs() );
+			System.out.println("");
 			choix = saisieString("Es-tu certain de ton choix ? (Oui/Non)");
 		} while( !(choix.equalsIgnoreCase("Oui")) );
 		ct.getP().setJob(classe);
+	}
+	
+	public static <T> void afficherList(List<T> list) {
+		for( T t : list ) System.out.println(t);
 	}
 
 	public static void donneInventaire() {
@@ -131,7 +135,7 @@ public class App {
 		for(int i=1;i<=10;i++) {
 			do {
 				Random rand = new Random();
-				it = allItems.get( rand.nextInt(allItems.size()) );
+				it = allItems.get( rand.nextInt( allItems.size() ) );
 			} while( obj.contains(it) || inventaire.contains(it) ); // ici il faudrait rajouter dans le while: || catalogue.contains(it)
 			inventaire.add(it);
 		}
@@ -163,7 +167,7 @@ public class App {
 	/* ------------------------------------ Choisir Marchand ------------------------------------ */
 	public static void choisirMarchand() {
 		System.out.println("Choisis à présent le marchand chez lequel tu souhaites te rendre :");
-		System.out.println( ct.getDaoMar().findAll() );
+		afficherList( ct.getDaoMar().findAll() );
 		int choix = saisieInt("");
 		if( choix >= 1 && choix <= ct.getDaoMar().findAll().size() ) {
 			Marchand m = ct.getDaoMar().findById(choix);
@@ -179,8 +183,9 @@ public class App {
 	}
 
 	public static void showInventaire() {
-		System.out.println("Vous possédez "+ ct.getP().getSolde() +"PO.");
-		System.out.println( ct.getP().getInventaire() );
+		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
+		System.out.println("");
+		afficherList( ct.getP().getInventaire() );
 
 		System.out.println("Que faire ?");
 		System.out.println("1 - Voir la description d'un objet");
@@ -305,9 +310,9 @@ public class App {
 			if(m.getAffinite()>66) valeur=valeur-it.getValeur()*m.getModPrix();
 			if(m.getAffinite()>80) valeur=valeur-it.getValeur()*m.getModPrix();
 			int val = (int) Math.round(valeur);
-			System.out.println(it.getId()+" - " + it.getNom()+": "+ val +" PO");
-			
+			System.out.println(it.getId()+" - " + it.getNom()+" : "+ val +" PO");
 		}
+		System.out.println("");
 		System.out.println("Y a-t-il quelque chose que tu aimerais acheter ?");
 		System.out.println("1 - Acheter un objet");
 		System.out.println("2 - Retour");
@@ -336,6 +341,7 @@ public class App {
 		if( m.getInventaire().contains(it) ) {
 			if( ct.getP().getSolde() < val ) {
 				System.out.println("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+				System.out.println("");
 				showInventaireMarchand(m);
 			}
 			//retire l'item de l'inventaire du marchand + gère son argent
@@ -348,6 +354,7 @@ public class App {
 	}
 
 	public static void vendreObjet(Marchand m) {
+		System.out.println("Objets contenus dans l'inventaire :");
 		for (Item it : ct.getP().getInventaire() ) 
 		{
 			//Attention, il faut modifier le prix selon le marchand...
@@ -357,8 +364,9 @@ public class App {
 			if(m.getAffinite()>66) valeur=valeur+it.getValeur()*m.getModPrix();
 			if(m.getAffinite()>80) valeur=valeur+it.getValeur()*m.getModPrix();
 			int val = (int) Math.round(valeur);
-			System.out.println(it.getId()+" - " + it.getNom()+": "+ val +" PO");
+			System.out.println(it.getId()+" - " + it.getNom()+" : "+ val +" PO");
 		}
+		System.out.println("");
 		System.out.println("Y a-t-il quelque chose que tu voudrais me vendre ?");
 		System.out.println("1 - Vendre un objet");
 		System.out.println("2 - Retour");
@@ -407,14 +415,14 @@ public class App {
 	/* ------------------------------------ Ecran de victoire ------------------------------------ */
 	public static void victoryScreen() {
 		// remplir ici un fichier avec les données du joueur + remerciements. 
-		System.out.println("Je t'attendais aventurier !");
-		System.out.println("Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
-		System.out.println("J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
+		System.out.println(ct.getP1() + "Je t'attendais aventurier !");
+		System.out.println(ct.getP1() + "Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
+		System.out.println(ct.getP1() + "J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
 		System.out.println("");
-		System.out.println("*Bravo, vous avez accompli vos objectifs avec brio !*");
-		System.exit(0);
+		System.out.println("***Bravo, vous avez accompli vos objectifs avec brio !***");
 		LocalDateTime end = LocalDateTime.now();
-		System.out.println(Duration .between(start, end).toMinutes()+" minutes "+ Duration .between(start, end).toSecondsPart()+" secondes");
+		System.out.println("Temps de jeu : " + Duration.between(start, end).toMinutes()+" minutes "+ Duration .between(start, end).toSecondsPart()+" secondes");
+		System.exit(0);
 	}
 	
 }
