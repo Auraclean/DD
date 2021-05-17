@@ -25,6 +25,8 @@ public class Context {
 	private Marchand m = new Marchand(); 
 	private Archetype classe = new Archetype();
 	
+	private String p1 = "Inconnu : ";
+	
 	private DAOJoueur daoP = new DAOJoueur();
 	private DAOArchetype daoArc = new DAOArchetype();
 	private DAOItem daoItem = new DAOItem();
@@ -71,6 +73,14 @@ public class Context {
 
 	public void setClasse(Archetype classe) {
 		this.classe = classe;
+	}
+
+	public String getP1() {
+		return p1;
+	}
+
+	public void setP1(String p1) {
+		this.p1 = p1;
 	}
 
 	public DAOArchetype getDaoArc() {
