@@ -133,7 +133,8 @@ public class App {
 	/* ------------------------------------ Menu de base ------------------------------------ */
 	public static void menu() {
 
-		if( ct.getP().getInventaire().containsAll( ct.getP().getJob().getObjectifs() ) && ct.getP().getSolde() >= 100 ) victoryScreen();
+		if( ct.getP().getInventaire().containsAll( ct.getP().getJob().getObjectifs() ) && ct.getP().getSolde() >= 100 ) 
+			victoryScreen();
 
 		System.out.println("Que faire ?");
 		System.out.println("1 - Aller voir un marchand");
@@ -199,8 +200,9 @@ public class App {
 	public static void pause() {
 		System.out.println("--- PAUSE ---");
 		LocalDateTime pause = LocalDateTime.now();
-		System.out.println(Duration .between(start, pause).toMinutes()+" minutes "+ Duration .between(start, pause).toSecondsPart()+" secondes");
-		// afficher le timer (temps de jeu)?
+		System.out.println("Temps de jeu : " + Duration.between(start, pause).toHours() +
+		" h " + Duration.between(start, pause).toMinutesPart() + " min "+ Duration.between(start, pause).toSecondsPart()+" sec");
+		System.out.println("");
 		System.out.println("1 - Reprendre le jeu");
 		System.out.println("2 - Réinitialiser la partie");
 
@@ -348,7 +350,7 @@ public class App {
 			if(m.getAffinite()>66) valeur=valeur+it.getValeur()*m.getModPrix();
 			if(m.getAffinite()>80) valeur=valeur+it.getValeur()*m.getModPrix();
 			int val = (int) Math.round(valeur);
-			System.out.println("Id :"+ it.getId() +", Nom : "+ it.getNom() +", Prix : "+ val +" PO");
+			System.out.println(it.getId()+" - " + it.getNom()+": "+ val +" PO");
 		}
 		System.out.println("Y a-t-il quelque chose que tu voudrais me vendre ?");
 		System.out.println("1 - Vendre un objet");
