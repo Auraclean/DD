@@ -148,7 +148,7 @@ public class App {
 		catalogue2.add(i25);
 
 		Marchand m1 = new Marchand("Halvar le Forgeron", 100, catalogue1, "Les Forges Infernalles", 50);
-		Marchand m2 = new Marchand("Thorvald le Voyageur", 70, catalogue2, "Boutique de Souvenirs du Monde", 66);
+		Marchand m2 = new Marchand("Thorvald le Voyageur", 70, catalogue2, "Boutique de Souvenirs du Monde", 66, 0.2);
 
 		m1 = ct.getDaoMar().save(m1);
 		m2 = ct.getDaoMar().save(m2);
@@ -457,7 +457,15 @@ public class App {
 		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
 		System.out.println("Voici tout les objets en ma possession :");
 		for (Item it : m.getInventaire() )
-			System.out.println("Id :"+ it.getId() +", Nom : "+ it.getNom() +", Prix : "+ it.getValeur() +" PO");
+		{
+			double valeur = it.getValeur();
+			if(m.getAffinite()<=25) valeur=valeur+it.getValeur()*m.getModPrix();
+			if(m.getAffinite()<=50) valeur=valeur+it.getValeur()*m.getModPrix();
+			if(m.getAffinite()>66) valeur=valeur-it.getValeur()*m.getModPrix();
+			if(m.getAffinite()>80) valeur=valeur-it.getValeur()*m.getModPrix();
+			int val = (int) Math.round(valeur);
+			System.out.println("Id :"+ it.getId() +", Nom : "+ it.getNom() +", Prix : "+ val +" PO");
+		}
 		System.out.println("Y a-t-il quelque chose que tu aimerais acheter ?");
 		System.out.println("1 - Acheter un objet");
 		System.out.println("2 - Retour");
@@ -477,24 +485,38 @@ public class App {
 		List<Item> inv_marchand = m.getInventaire();
 		List<Item> inv_joueur = ct.getP().getInventaire();
 		
+		double valeur = it.getValeur();
+		if(m.getAffinite()<=25) valeur=valeur+it.getValeur()*m.getModPrix();
+		if(m.getAffinite()<=50) valeur=valeur+it.getValeur()*m.getModPrix();
+		if(m.getAffinite()>66) valeur=valeur-it.getValeur()*m.getModPrix();
+		if(m.getAffinite()>80) valeur=valeur-it.getValeur()*m.getModPrix();
+		int val = (int) Math.round(valeur);
 		if( m.getInventaire().contains(it) ) {
-			if( ct.getP().getSolde() < it.getValeur() ) {
+			if( ct.getP().getSolde() < val ) {
 				System.out.println("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
 				showInventaireMarchand(m);
 			}
 			//retire l'item de l'inventaire du marchand + gère son argent
 			inv_marchand.remove(it); m.setInventaire(inv_marchand);
-			m.setSolde( m.getSolde() + it.getValeur() );
+			m.setSolde( m.getSolde() + val );
 			//ajoute l'item à l'inventaire du joueur + gère son argent
 			inv_joueur.add(it); ct.getP().setInventaire(inv_joueur);
-			ct.getP().setSolde( ct.getP().getSolde() - it.getValeur() );
+			ct.getP().setSolde( ct.getP().getSolde() - val );
 		}
 	}
 
 	public static void vendreObjet(Marchand m) {
-		for (Item it : ct.getP().getInventaire() )
+		for (Item it : ct.getP().getInventaire() ) 
+		{
 			//Attention, il faut modifier le prix selon le marchand...
-			System.out.println("Id :"+ it.getId() +", Nom : "+ it.getNom() +", Prix : "+ it.getValeur() +" PO");
+			double valeur = it.getValeur();
+			if(m.getAffinite()<=25) valeur=valeur-it.getValeur()*m.getModPrix();
+			if(m.getAffinite()<=50) valeur=valeur-it.getValeur()*m.getModPrix();
+			if(m.getAffinite()>66) valeur=valeur+it.getValeur()*m.getModPrix();
+			if(m.getAffinite()>80) valeur=valeur+it.getValeur()*m.getModPrix();
+			int val = (int) Math.round(valeur);
+			System.out.println("Id :"+ it.getId() +", Nom : "+ it.getNom() +", Prix : "+ val +" PO");
+		}
 		System.out.println("Y a-t-il quelque chose que tu voudrais me vendre ?");
 		System.out.println("1 - Vendre un objet");
 		System.out.println("2 - Retour");
@@ -514,10 +536,10 @@ public class App {
 		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
 		Item it = ct.getDaoItem().findById(id_objet);
 		double valeur = it.getValeur();
-		if(m.getAffinite()<=25) valeur=valeur-it.getValeur()*0.1;
-		if(m.getAffinite()<=50) valeur=valeur-it.getValeur()*0.1;
-		if(m.getAffinite()>50) valeur=valeur+it.getValeur()*0.1;
-		if(m.getAffinite()>75) valeur=valeur+it.getValeur()*0.1;
+		if(m.getAffinite()<=25) valeur=valeur-it.getValeur()*m.getModPrix();
+		if(m.getAffinite()<=50) valeur=valeur-it.getValeur()*m.getModPrix();
+		if(m.getAffinite()>66) valeur=valeur+it.getValeur()*m.getModPrix();
+		if(m.getAffinite()>80) valeur=valeur+it.getValeur()*m.getModPrix();
 		int val = (int) Math.round(valeur);
 		List<Item> inv_joueur = j.getInventaire();
 		List<Item> inv_marchand = m.getInventaire();
