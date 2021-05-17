@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import metier.Question;
 import util.Context;
 
@@ -37,5 +39,15 @@ public class DAOQuestion implements IDAO<Question,Integer>{
 		em.remove(question);
 		em.getTransaction().commit();
 		em.close();
+	}
+	
+	//Permet de trouver la liste de questions associée à un marchand
+	public List<Question> findByIdMarchand(int id) {
+		EntityManager em = Context.get_instance().getEmf().createEntityManager();
+		Query query = em.createQuery("select distinct q from Question q join fetch q.reponses where q.marchand.id =:id", Question.class);
+		query.setParameter("id", id);
+		List<Question> questions = query.getResultList();
+		em.close();
+		return questions;
 	}
 }

@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,8 @@ public class Archetype {
 	private int id;
 	@Enumerated(EnumType.STRING)
 	private Role nom;
-	@OneToMany(cascade = CascadeType.MERGE)
+	// Eager permet d'aller chercher la liste des objectifs en même temps que la classe
+	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(name="objectifs")
 	private List<Item> objectifs;
 	
