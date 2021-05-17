@@ -440,7 +440,7 @@ public class App {
 	public static void showInventaireMarchand(Marchand m) {
 		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
 		for (Item it : m.getInventaire() )
-			System.out.println("Id :"+ it.getNom() +", Prix : "+ it.getValeur() +" PO");
+			System.out.println("Id :"+ it.getId() +", Nom : "+ it.getNom() +", Prix : "+ it.getValeur() +" PO");
 		acheter(m);
 	}
 
