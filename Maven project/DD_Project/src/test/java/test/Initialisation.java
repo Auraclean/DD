@@ -174,8 +174,25 @@ public class Initialisation {
 		catalogue2.add(i25);
 
 		Marchand m1 = new Marchand("HALVAR LE FORGERON", 300, catalogue1, "Les Forges Infernalles", 50);
+		m1.setBonjour(null);
+		m1.setBonneReponse("Bonne réponse !");
+		m1.setMauvaiseReponse("Mauvaise réponse.");
+		m1.setVenteOk(null);
+		m1.setVenteNope(null);
+		m1.setStock(null);
+		m1.setAchatOk("Merci pour votre achat !");
+		m1.setAchatNope("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+		
 		Marchand m2 = new Marchand("THORVALD LE VOYAGEUR", 200, catalogue2, "Boutique de Souvenirs du Monde", 66, 0.2);
-
+		m2.setBonjour(null);
+		m2.setBonneReponse("Bonne réponse !");
+		m2.setMauvaiseReponse("Mauvaise réponse.");
+		m2.setVenteOk(null);
+		m2.setVenteNope(null);
+		m2.setStock(null);
+		m2.setAchatOk("Merci pour votre achat !");
+		m2.setAchatNope("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+		
 		m1 = ct.getDaoMar().save(m1);
 		m2 = ct.getDaoMar().save(m2);
 

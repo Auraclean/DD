@@ -18,6 +18,24 @@ public class Marchand extends Personne{
 	@OneToMany(mappedBy = "marchand")
 	//@JoinTable(name="questions",joinColumns = @JoinColumn(name="idMarchand"),inverseJoinColumns = @JoinColumn(name="idQuestion"))
 	private List<Question> questions;
+	@Column(name="phrase_acceuil", length = 100)
+	private String bonjour;
+	@Column(name="phrase_depart", length = 100)
+	private String aurevoir;
+	@Column(name="bonne_reponse", length = 100)
+	private String bonneReponse;
+	@Column(name="mauvaise_reponse", length = 100)
+	private String mauvaiseReponse;
+	@Column(name="vente_reussie", length = 100)
+	private String venteOk;
+	@Column(name="vente_echec", length = 100)
+	private String venteNope;
+	@Column(name="affichage_stock", length = 100)
+	private String stock;
+	@Column(name="achat_realise", length = 100)
+	private String achatOk;
+	@Column(name="achat_impossible", length = 100)
+	private String achatNope;
 	
 	public Marchand() {}
 	
@@ -85,6 +103,70 @@ public class Marchand extends Personne{
 	
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
+	}
+
+	public String getBonjour() {
+		return bonjour;
+	}
+
+	public void setBonjour(String bonjour) {
+		this.bonjour = bonjour;
+	}
+
+	public String getBonneReponse() {
+		return bonneReponse;
+	}
+
+	public void setBonneReponse(String bonneReponse) {
+		this.bonneReponse = bonneReponse;
+	}
+
+	public String getMauvaiseReponse() {
+		return mauvaiseReponse;
+	}
+
+	public void setMauvaiseReponse(String mauvaiseReponse) {
+		this.mauvaiseReponse = mauvaiseReponse;
+	}
+
+	public String getVenteOk() {
+		return venteOk;
+	}
+
+	public void setVenteOk(String venteOk) {
+		this.venteOk = venteOk;
+	}
+
+	public String getVenteNope() {
+		return venteNope;
+	}
+
+	public void setVenteNope(String venteNope) {
+		this.venteNope = venteNope;
+	}
+
+	public String getStock() {
+		return stock;
+	}
+
+	public void setStock(String stock) {
+		this.stock = stock;
+	}
+
+	public String getAchatOk() {
+		return achatOk;
+	}
+
+	public void setAchatOk(String achatOk) {
+		this.achatOk = achatOk;
+	}
+
+	public String getAchatNope() {
+		return achatNope;
+	}
+
+	public void setAchatNope(String achatNope) {
+		this.achatNope = achatNope;
 	}
 
 	@Override
