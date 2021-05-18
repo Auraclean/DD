@@ -311,11 +311,11 @@ public class App {
 			//Trouver un moyen de sélectionner une réponse
 			Reponse rep_player = q.getReponses().get( choix-1 );
 			if( rep_player.isValid() ) {
-				System.out.println(m.getNom() + " : Bonne réponse !");
+				System.out.println(m.getNom() + " : "+ m.getBonneReponse());
 				m.setAffinite(m.getAffinite()+15);
 			}
 			else {
-				System.out.println(m.getNom() + " : Mauvaise réponse.");
+				System.out.println(m.getNom() + " : "+ m.getMauvaiseReponse());
 				m.setAffinite(m.getAffinite()-15);
 			}
 			System.out.println("");
@@ -341,7 +341,7 @@ public class App {
 		}
 		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		System.out.println("");
-		System.out.println(m.getNom() + " : Voici tout les objets en ma possession :");
+		System.out.println(m.getNom() + " : " + m.getStock() + " :");
 		int i = -1;
 		int[] ind = new int[ m.getInventaire().size() ];
 		for (Item it : m.getInventaire() )
@@ -383,7 +383,7 @@ public class App {
 		int val = (int) Math.round(valeur);
 		if( m.getInventaire().contains(it) ) {
 			if( ct.getP().getSolde() < val ) {
-				System.out.println(m.getNom() + " : Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+				System.out.println(m.getNom() + " : "+m.getAchatNope());
 				System.out.println("");
 				showInventaireMarchand(m);
 			}
@@ -395,7 +395,7 @@ public class App {
 			inv_joueur.add(it); ct.getP().setInventaire(inv_joueur);
 			ct.getP().setSolde( ct.getP().getSolde() - val );
 			ct.setP( ct.getDaoP().save( ct.getP() ) );
-			System.out.println("Merci pour votre achat !");
+			System.out.println(m.getAchatOk());
 			System.out.println("");
 		}
 	}

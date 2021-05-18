@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Joueur extends Personne {
 
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne//(cascade = CascadeType.MERGE)
     private Archetype job;
 	@Column(name="solde_final")
 	private int objectif;
