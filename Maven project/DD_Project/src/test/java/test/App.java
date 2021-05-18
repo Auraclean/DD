@@ -1,5 +1,8 @@
 package test;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,7 +11,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import metier.*;
-import net.bytebuddy.asm.Advice.Local;
 import util.Context;
 
 public class App {
@@ -40,7 +42,15 @@ public class App {
 	}
 
 	/* ------------------------------------ Fonctions I/O ------------------------------------ */
-
+	private static void ecrire(String chemin) {
+		File f = new File(chemin);
+		try(FileWriter fw = new FileWriter(f);) { 
+			fw.write("Félicitations " + ct.getP().getNom() + " ! Vous avez réussi à terminer le Projet DD. \n \nVous avez mis "
+		+ h + " h " + min + " min " + s + " s avec la classe " + ct.getP().getJob().getNom() +" ! \nMerci d'avoir joué ! \nThomas, Yann, Nicola" ); 
+		} catch(IOException ioe) { 
+			ioe.printStackTrace(); 
+		}
+	}
 
 	/* ------------------------------------ MAIN ------------------------------------ */
 	public static void main(String[] args) {
@@ -107,7 +117,11 @@ public class App {
 			System.out.println("");
 			System.out.println("Avant tout, quelle est ta classe ?");
 			//Montre les classes disponibles
-			for( Archetype a : ct.getDaoArc().findAll() ) System.out.println(a);
+			int i = 0;
+			for( Archetype a : ct.getDaoArc().findAll() ) {
+				i++;
+				System.out.println(i + " - " + a.getNom());
+			}
 			System.out.println("");
 			classe = ct.getDaoArc().findById( saisieInt("") );
 			//Montre les objectifs liés à la classe choisie
@@ -476,13 +490,15 @@ public class App {
 
 	/* ------------------------------------ Ecran de victoire ------------------------------------ */
 	public static void victoryScreen() {
-		// remplir ici un fichier avec les données du joueur + remerciements. 
-		System.out.println(ct.getP1() + "Je t'attendais aventurier !");
-		System.out.println(ct.getP1() + "Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
-		System.out.println(ct.getP1() + "J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
+		System.out.println(" !!! ");
+		System.out.println("");
+		System.out.println("Je t'attendais aventurier !");
+		System.out.println("Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
+		System.out.println("J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
 		System.out.println("");
 		gestionTime();
 		System.out.println("***Bravo, vous avez accompli vos objectifs avec brio !***");
+		ecrire("Félicitations.txt");
 		System.exit(0);
 	}
 
