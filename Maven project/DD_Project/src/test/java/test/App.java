@@ -364,7 +364,10 @@ public class App {
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 :
-			int id_objet = saisieInt("Sélectionner le numéro de l'objet à acheter :");
+			int id_objet = 0;
+			do {
+			id_objet = saisieInt("Sélectionner le numéro de l'objet à acheter :");
+			} while( id_objet < 1 || id_objet > ind.length );
 			acheter(m, ind[ id_objet-1 ]);break;
 		case 2 : menuMarchand(m);break;
 		}
@@ -432,7 +435,10 @@ public class App {
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 :
-			int id_objet = saisieInt("Sélectionner le numéro de l'objet à vendre :");
+			int id_objet = 0;
+			do {
+			id_objet = saisieInt("Sélectionner le numéro de l'objet à vendre :");
+			} while( id_objet < 1 || id_objet > ind.length );
 			vendre(m, ind[ id_objet-1 ]);break;
 		case 2 : menuMarchand(m);break;
 		}
