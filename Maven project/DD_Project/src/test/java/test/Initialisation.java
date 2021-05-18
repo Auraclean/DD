@@ -202,7 +202,7 @@ public class Initialisation {
 		m1.setAurevoir("A la revoyure aventurier!");
 		m1.setBonneReponse("C'est une réponse intéressante.");
 		m1.setMauvaiseReponse("Médiocre. Je m'attendais à mieux de votre part.");
-		m1.setVenteOk("Un plaisir de faire affaire avec vous!");
+		m1.setVenteOk("C'est un plaisir de faire affaire avec vous!");
 		m1.setVenteNope("Désolé, je n'ai pas assez d'argent pour ça. J'ai une famille à nourrir.");
 		m1.setStock("Voici l'ensemble de mes produits, la fierté de mon établissement!");
 		m1.setAchatOk("Merci pour votre achat !");
@@ -219,15 +219,16 @@ public class Initialisation {
 		m2.setAchatOk("Hé hé, une transaction réglée en monnaie sonnante et trébuchante!");
 		m2.setAchatNope("Passe ton chemin manant, je n'accepte pas les sans-le-sous dans mon havre de curiosités.");
 		
-		Marchand m3 = new Marchand("GREGORY LE CHANTEUR", 275, catalogue3, "Boutique du Dragon Chantant", 35, 0.5);
-		m3.setBonjour(null);
-		m3.setBonneReponse("Bonne réponse !");
-		m3.setMauvaiseReponse("Mauvaise réponse.");
-		m3.setVenteOk(null);
-		m3.setVenteNope(null);
-		m3.setStock(null);
-		m3.setAchatOk("Merci pour votre achat !");
-		m3.setAchatNope("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+		Marchand m3 = new Marchand("GREGORY LE CHANTEUR", 275, catalogue3, "Boutique du Dragon Chantant", 45, 0.3);
+		m3.setBonjour("Bonjour gamin, bienvenue dans l'antre du Dragon!");
+		m3.setAurevoir("Fais attention à toi gamain!");
+		m3.setBonneReponse("Bien joué gamin !");
+		m3.setMauvaiseReponse("Dommage, apprend de tes erreurs.");
+		m3.setVenteOk("J'achète gamin!");
+		m3.setVenteNope("Tu m'a plumé gamin, j'ai plus un rond pour toi!");
+		m3.setStock("Admire gamin, les trouvailles d'une vie d'aventure!");
+		m3.setAchatOk("Merci bien gamin, utilise le avec soin!");
+		m3.setAchatNope("Pour qui tu me prends gamin? Je vends pas à crédit.");
 		
 		m1 = ct.getDaoMar().save(m1);
 		m2 = ct.getDaoMar().save(m2);
