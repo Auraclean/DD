@@ -72,6 +72,11 @@ public class Initialisation {
 		Item i52 	= new Item("Grimoire", "Ca sent le vieux", 35);
 		Item i53 	= new Item("Clef", "Que peut elle bien ouvrir", 12);
 		Item i54 	= new Item("Peluche", "C'est surement infesté de puce", 3);
+		Item i55 	= new Item("Lorem Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 33);
+		Item i56 	= new Item("Pomme", "Une pomme", 2);
+		Item i57 	= new Item("Clef", "Ca doit certainement ouvrir quelque chose...", 10);
+		Item i58 	= new Item("Arrosoir", "Qui vous a dit que vous n'aviez pas la main verte ?", 8);
+		
 
 		//Enregistre les objets
 		// mettre le i1 = au début évite d'avoir des objets en plusieurs exemplaires
@@ -129,6 +134,10 @@ public class Initialisation {
 		i52 = ct.getDaoItem().save(i52);
 		i53 = ct.getDaoItem().save(i53);
 		i54 = ct.getDaoItem().save(i54);
+		i55 = ct.getDaoItem().save(i55);
+		i56 = ct.getDaoItem().save(i56);
+		i57 = ct.getDaoItem().save(i57);
+		i58 = ct.getDaoItem().save(i58);
 
 		//Creation des listes correspondant aux Archetypes
 		List<Item> objectifSorcier = new ArrayList<Item>();
