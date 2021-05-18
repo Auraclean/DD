@@ -236,7 +236,7 @@ public class App {
 
 	/* ------------------------------------ Menu Marchand ------------------------------------ */
 	public static void menuMarchand(Marchand m) {
-		System.out.println(m.getNom()+": "+"Bonjour aventurier, prends ton temps et regarde tout ce qui t'intéresse.");
+		System.out.println( m.getNom() + " : " + "Bonjour aventurier, prends ton temps et regarde tout ce qui t'intéresse.");
 		System.out.println("1 - Discuter");
 		System.out.println("2 - Voir les objets en vente");
 		System.out.println("3 - Vendre un objet");
@@ -313,8 +313,7 @@ public class App {
 
 	public static void showInventaireMarchand(Marchand m) {
 		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
-		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
-		System.out.println(m.getNom()+": "+"Voici tout les objets en ma possession :");
+		System.out.println(m.getNom()+" : "+"Voici tout les objets en ma possession :");
 		for (Item it : m.getInventaire() )
 		{
 			double valeur = it.getValeur();
@@ -337,6 +336,7 @@ public class App {
 			acheter(m, id_objet);break;
 		case 2 : menuMarchand(m);break;
 		}
+		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		showInventaireMarchand(m);
 	}
 
@@ -371,7 +371,6 @@ public class App {
 	}
 
 	public static void vendreObjet(Marchand m) {
-		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		System.out.println("Objets contenus dans l'inventaire :");
 		for (Item it : ct.getP().getInventaire() ) 
 		{
@@ -396,6 +395,7 @@ public class App {
 			vendre(m, id_objet);break;
 		case 2 : menuMarchand(m);break;
 		}
+		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		vendreObjet(m);	
 	}
 
