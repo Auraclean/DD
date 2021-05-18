@@ -68,7 +68,10 @@ public class Initialisation {
 		Item i48 	= new Item("Chat", "Mignon mais peut disparaitre de votre inventaire sans raison...", 53);
 		Item i49 	= new Item("Nintendo Switch", "Pour jouer à des jeux plus intéressants que celui-ci", 100);
 		Item i50 	= new Item("PC", "Félicitations, vous avez gagné car vous pouvez hacker ce jeu à la noix...ou pas", 200);
-		
+		Item i51 	= new Item("Orange", "L'orange du marchand", 6);
+		Item i52 	= new Item("Grimoire", "Ca sent le vieux", 35);
+		Item i53 	= new Item("Clef", "Que peut elle bien ouvrir", 12);
+		Item i54 	= new Item("Peluche", "C'est surement infesté de puce", 3);
 
 		//Enregistre les objets
 		// mettre le i1 = au début évite d'avoir des objets en plusieurs exemplaires
@@ -122,7 +125,10 @@ public class Initialisation {
 		i48 = ct.getDaoItem().save(i48);
 		i49 = ct.getDaoItem().save(i49);
 		i50 = ct.getDaoItem().save(i50);
-		
+		i51 = ct.getDaoItem().save(i51);
+		i52 = ct.getDaoItem().save(i52);
+		i53 = ct.getDaoItem().save(i53);
+		i54 = ct.getDaoItem().save(i54);
 
 		//Creation des listes correspondant aux Archetypes
 		List<Item> objectifSorcier = new ArrayList<Item>();
