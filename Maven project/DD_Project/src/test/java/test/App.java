@@ -8,13 +8,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 import metier.*;
+import net.bytebuddy.asm.Advice.Local;
 import util.Context;
 
 public class App {
 
-	static LocalDateTime start = LocalDateTime.now();
+	static LocalDateTime start;
+	static long h = 0, min = 0, s = 0;
 	static Context ct = Context.get_instance();
-
 
 	/* ------------------------------------ Fonctions d'entrées au clavier ------------------------------------ */
 	public static String saisieString(String msg) 
@@ -41,8 +42,6 @@ public class App {
 	/* ------------------------------------ Fonctions I/O ------------------------------------ */
 
 
-
-
 	/* ------------------------------------ MAIN ------------------------------------ */
 	public static void main(String[] args) {
 
@@ -54,6 +53,8 @@ public class App {
 
 	/* ------------------------------------ Start Jeu ------------------------------------ */
 	public static void startJeu() {
+		start = LocalDateTime.now();
+		System.out.println("");
 		System.out.println("Salut à toi, aventurier !");
 		System.out.println("Tu errais dans la forêt mais tu viens d'apercevoir un petit village.");
 		System.out.println("Que décides-tu ?");
@@ -235,9 +236,7 @@ public class App {
 	/* ------------------------------------ Pause ------------------------------------ */   
 	public static void pause() {
 		System.out.println("--- PAUSE ---");
-		LocalDateTime pause = LocalDateTime.now();
-		System.out.println("Temps de jeu : " + Duration.between(start, pause).toHours() +
-				" h " + Duration.between(start, pause).toMinutesPart() + " min "+ Duration.between(start, pause).toSecondsPart()+" sec");
+		gestionTime();
 		System.out.println("");
 		System.out.println("1 - Reprendre le jeu");
 		System.out.println("2 - Réinitialiser la partie");
@@ -245,6 +244,7 @@ public class App {
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 : 
+			start = LocalDateTime.now();
 			menu();break;
 		case 2 : 
 			String r = saisieString("Veux-tu vraiment arrêter la partie en cours ? (Oui/Non)");
@@ -457,6 +457,22 @@ public class App {
 			System.out.println("");
 		}
 	}
+	
+	public static void gestionTime() {
+		LocalDateTime t = LocalDateTime.now();
+		h += Duration.between(start, t).toHours();
+		min += Duration.between(start, t).toMinutesPart();
+		s += Duration.between(start, t).toSecondsPart();
+		if( s > 59 ) {
+			s = s%60;
+			min++;		
+		}
+		if( min > 59 ) {
+			min = min%60;
+			h++;
+		}
+		System.out.println("Temps de jeu : " + h + " h " + min + " min " + s + " s");
+	}
 
 	/* ------------------------------------ Ecran de victoire ------------------------------------ */
 	public static void victoryScreen() {
@@ -465,8 +481,7 @@ public class App {
 		System.out.println(ct.getP1() + "Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
 		System.out.println(ct.getP1() + "J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
 		System.out.println("");
-		LocalDateTime end = LocalDateTime.now();
-		System.out.println("Temps de jeu : " + Duration.between(start, end).toMinutes()+" minutes "+ Duration .between(start, end).toSecondsPart()+" secondes");
+		gestionTime();
 		System.out.println("***Bravo, vous avez accompli vos objectifs avec brio !***");
 		System.exit(0);
 	}
