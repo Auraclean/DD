@@ -226,10 +226,10 @@ public class Initialisation {
 		reponses4.add(r12);
 
 		//Création des questions + marchands qui en disposent
-		Question q1 = new Question("Que penses-tu de notre village aventurier?", reponses1,m1);
-		Question q2 = new Question("As-tu déjà connu la peur l'étranger??", reponses2,m2);
-		Question q3 = new Question("Holà qui va là!?", reponses3,m2);
-		Question q4 = new Question("Quel est ton plus grand désir l'aventurier?", reponses4,m1);
+		Question q1 = new Question("Halvar le Forgeron : Que penses-tu de notre village aventurier?", reponses1,m1);
+		Question q2 = new Question("Halvar le Forgeron : As-tu déjà connu la peur l'étranger??", reponses2,m2);
+		Question q3 = new Question("Thorvald le Voyageur : Holà qui va là!?", reponses3,m2);
+		Question q4 = new Question("Thorvald le Voyageur : Quel est ton plus grand désir l'aventurier?", reponses4,m1);
 
 		ct.getDaoQues().save(q1);
 		ct.getDaoQues().save(q2);

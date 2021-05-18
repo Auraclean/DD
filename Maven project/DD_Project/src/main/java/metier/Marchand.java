@@ -89,7 +89,7 @@ public class Marchand extends Personne{
 
 	@Override
 	public String toString() {
-		return id + " - " + nomMagasin +" de "+  nom ;
+		return id + " - " + nomMagasin ;
 	}
 
 	
