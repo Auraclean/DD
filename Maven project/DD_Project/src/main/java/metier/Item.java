@@ -15,7 +15,7 @@ public class Item {
 	private int id;
 	@Column(name="nom", length = 50)
 	private String nom;
-	@Column(name="description", length = 100)
+	@Column(name="description", length = 500)
     private String description;
 	@Column(name="valeur_item")
     private int valeur;

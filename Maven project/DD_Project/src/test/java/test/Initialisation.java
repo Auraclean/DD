@@ -68,6 +68,14 @@ public class Initialisation {
 		Item i48 	= new Item("Chat", "Mignon mais peut disparaitre de votre inventaire sans raison...", 53);
 		Item i49 	= new Item("Nintendo Switch", "Pour jouer à des jeux plus intéressants que celui-ci", 100);
 		Item i50 	= new Item("PC", "Félicitations, vous avez gagné car vous pouvez hacker ce jeu à la noix...ou pas", 200);
+		Item i51 	= new Item("Orange", "L'orange du marchand", 6);
+		Item i52 	= new Item("Grimoire", "Ca sent le vieux", 35);
+		Item i53 	= new Item("Clef", "Que peut elle bien ouvrir", 12);
+		Item i54 	= new Item("Peluche", "C'est surement infesté de puce", 3);
+		Item i55 	= new Item("Lorem Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 33);
+		Item i56 	= new Item("Pomme", "Une pomme", 2);
+		Item i57 	= new Item("Clef", "Ca doit certainement ouvrir quelque chose...", 10);
+		Item i58 	= new Item("Arrosoir", "Qui vous a dit que vous n'aviez pas la main verte ?", 8);
 		
 
 		//Enregistre les objets
@@ -122,7 +130,14 @@ public class Initialisation {
 		i48 = ct.getDaoItem().save(i48);
 		i49 = ct.getDaoItem().save(i49);
 		i50 = ct.getDaoItem().save(i50);
-		
+		i51 = ct.getDaoItem().save(i51);
+		i52 = ct.getDaoItem().save(i52);
+		i53 = ct.getDaoItem().save(i53);
+		i54 = ct.getDaoItem().save(i54);
+		i55 = ct.getDaoItem().save(i55);
+		i56 = ct.getDaoItem().save(i56);
+		i57 = ct.getDaoItem().save(i57);
+		i58 = ct.getDaoItem().save(i58);
 
 		//Creation des listes correspondant aux Archetypes
 		List<Item> objectifSorcier = new ArrayList<Item>();
@@ -172,6 +187,15 @@ public class Initialisation {
 		catalogue2.add(i9);
 		catalogue2.add(i16);
 		catalogue2.add(i25);
+		List<Item> catalogue3 = new ArrayList<Item>();
+		catalogue3.add(i51);
+		catalogue3.add(i7);
+		catalogue3.add(i13);
+		catalogue3.add(i10);
+		catalogue3.add(i47);
+		catalogue3.add(i37);
+		catalogue3.add(i34);
+		catalogue3.add(i19);
 
 		Marchand m1 = new Marchand("HALVAR LE FORGERON", 300, catalogue1, "Les Forges Infernalles", 50);
 		m1.setBonjour(null);
@@ -193,8 +217,19 @@ public class Initialisation {
 		m2.setAchatOk("Merci pour votre achat !");
 		m2.setAchatNope("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
 		
+		Marchand m3 = new Marchand("GREGORY LE CHANTEUR", 275, catalogue3, "Boutique du Dragon Chantant", 35, 0.5);
+		m3.setBonjour(null);
+		m3.setBonneReponse("Bonne réponse !");
+		m3.setMauvaiseReponse("Mauvaise réponse.");
+		m3.setVenteOk(null);
+		m3.setVenteNope(null);
+		m3.setStock(null);
+		m3.setAchatOk("Merci pour votre achat !");
+		m3.setAchatNope("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+		
 		m1 = ct.getDaoMar().save(m1);
 		m2 = ct.getDaoMar().save(m2);
+		m3 = ct.getDaoMar().save(m3);
 
 		//Creation Reponses
 		Reponse r1 = new Reponse("Charmant et rustisque comme je les aime", false);
@@ -209,6 +244,13 @@ public class Initialisation {
 		Reponse r10 = new Reponse("Fonder une famille et vivre paisiblement", false);
 		Reponse r11 = new Reponse("Decouvrir la verite de ce monde", true);
 		Reponse r12 = new Reponse("Combattre les injustices de la société", false);
+		Reponse r13 = new Reponse("Un monstre", false);
+		Reponse r14 = new Reponse("Un menteur", true);
+		Reponse r15 = new Reponse("Un fou", false);
+		Reponse r16 = new Reponse("La soupe d'artichaut", false);
+		Reponse r17 = new Reponse("Une orange", true);
+		Reponse r18 = new Reponse("Une entrecote d'orc", false);
+		
 
 		/*		ct.getDaoRep().save(r1);
 				ct.getDaoRep().save(r2);
@@ -241,16 +283,28 @@ public class Initialisation {
 		reponses4.add(r10);
 		reponses4.add(r11);
 		reponses4.add(r12);
+		List<Reponse> reponses5 = new ArrayList<Reponse>();
+		reponses5.add(r13);
+		reponses5.add(r14);
+		reponses5.add(r15);
+		List<Reponse> reponses6 = new ArrayList<Reponse>();
+		reponses6.add(r16);
+		reponses6.add(r17);
+		reponses6.add(r18);
 
 		//Création des questions + marchands qui en disposent
 		Question q1 = new Question("Que penses-tu de notre village aventurier?", reponses1,m1);
 		Question q2 = new Question("As-tu déjà connu la peur l'étranger??", reponses2,m2);
 		Question q3 = new Question("Holà qui va là!?", reponses3,m2);
 		Question q4 = new Question("Quel est ton plus grand désir l'aventurier?", reponses4,m1);
+		Question q5 = new Question("j'ai 2 pieds, 6 jambes, 8 bras, 2 têtes et un oeil, qui suis-je ?", reponses5,m3);
+		Question q6 = new Question("Quel est mon plat préféré?", reponses6,m3);
 
 		ct.getDaoQues().save(q1);
 		ct.getDaoQues().save(q2);
 		ct.getDaoQues().save(q3);
 		ct.getDaoQues().save(q4);
+		ct.getDaoQues().save(q5);
+		ct.getDaoQues().save(q6);
 	}
 }
