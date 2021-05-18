@@ -92,6 +92,8 @@ public class App {
 		System.out.println("*Vous ouvrez la bourse et constatez que cette dernière est vide.*");
 		System.out.println("Tu ne t'attendais tout de même pas à ce qu'elle contienne quelque chose ! *rire*");
 		System.out.println("En revanche, voici un sac avec des objets choisis par mes soins.");
+		System.out.println("*Vous avez obtenu un inventaire (plein)!*");
+		System.out.println("");
 		donneInventaire();
 		ct.setP( ct.getDaoP().save( ct.getP() ) );
 	}
@@ -102,20 +104,16 @@ public class App {
 		do {
 			System.out.println("Avant tout, quelle est ta classe ?");
 			//Montre les classes disponibles
-			afficherList( ct.getDaoArc().findAll() );
+			for( Archetype a : ct.getDaoArc().findAll() ) System.out.println(a);
 			System.out.println("");
 			classe = ct.getDaoArc().findById( saisieInt("") );
 			//Montre les objectifs liés à la classe choisie
 			System.out.println("Voici les objets correspondant à cette classe :");
-			afficherList( classe.getObjectifs() );
+			for( Item it : classe.getObjectifs() ) System.out.println("- " + it);	
 			System.out.println("");
 			choix = saisieString("Es-tu certain de ton choix ? (Oui/Non)");
 		} while( !(choix.equalsIgnoreCase("Oui")) );
 		ct.getP().setJob(classe);
-	}
-
-	public static <T> void afficherList(List<T> list) {
-		for( T t : list ) System.out.println(t);
 	}
 
 	public static void donneInventaire() {
@@ -168,7 +166,7 @@ public class App {
 	/* ------------------------------------ Choisir Marchand ------------------------------------ */
 	public static void choisirMarchand() {
 		System.out.println("Choisis à présent le marchand chez lequel tu souhaites te rendre :");
-		afficherList( ct.getDaoMar().findAll() );
+		for( Marchand m : ct.getDaoMar().findAll() ) System.out.println(m);
 		int choix = saisieInt("");
 		if( choix >= 1 && choix <= ct.getDaoMar().findAll().size() ) {
 			Marchand m = ct.getDaoMar().findById(choix);
@@ -186,7 +184,13 @@ public class App {
 	public static void showInventaire() {
 		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		System.out.println("");
-		afficherList( ct.getP().getInventaire() );
+		int i = 0;
+		int[] ind = new int[ ct.getP().getInventaire().size() ];
+		for( Item it : ct.getP().getInventaire() ) {
+			i++;
+			ind[i-1] = it.getId();
+			System.out.println( i + " - " + it);
+		}
 		System.out.println("");
 		
 		System.out.println("Que faire ?");
@@ -195,16 +199,17 @@ public class App {
 
 		int choix = saisieInt("");
 		switch(choix) {
-		case 1 : decrireObjet();break;
+		case 1 : decrireObjet(ind);break;
 		case 2 : menu();break;
 		}
 		showInventaire();
 	}
 
-	public static void decrireObjet() {
-		String objet = saisieString("Saisir le nom de l'objet");
-		for( Item it : ct.getP().getInventaire() )
-			if( objet.equalsIgnoreCase( it.getNom() ) ) System.out.println( it.getDescription() ); 
+	public static void decrireObjet(int[] ind) {
+		int n = saisieInt("Saisir le numéro de l'objet");
+		Item it = ct.getDaoItem().findById( ind[n-1] ); 
+		if( ct.getP().getInventaire().contains(it) ) System.out.println( it.getNom() + " : " + it.getDescription() );
+		System.out.println("");
 	}
 
 	/* ------------------------------------ Pause ------------------------------------ */   
@@ -261,21 +266,21 @@ public class App {
 			if(q.isRepondue()) continue;
 			q.setRepondue(true);
 			int i = -1;
-			System.out.println(m.getNom()+": " + q.getLibelle() );
+			System.out.println(m.getNom()+" : " + q.getLibelle() );
 			for( Reponse r : q.getReponses() ) {
 				i++;
-				System.out.println( (i+1) +"- "+ r.getLibelle() );
+				System.out.println( (i+1) +" - "+ r.getLibelle() );
 				rep[i] = r.getId();	
 			}
 			int choix = saisieInt("");
 			//Trouver un moyen de sélectionner une réponse
 			Reponse rep_player = q.getReponses().get( choix-1 );
 			if( rep_player.isValid() ) {
-				System.out.println(m.getNom()+": "+"Bonne réponse !");
+				System.out.println(m.getNom()+" : " + "Bonne réponse !");
 				m.setAffinite(m.getAffinite()+15);
 			}
 			else {
-				System.out.println(m.getNom()+": "+"Mauvaise réponse.");
+				System.out.println(m.getNom()+" : " + "Mauvaise réponse.");
 				m.setAffinite(m.getAffinite()-15);
 			}
 			m = ct.getDaoMar().save(m);
@@ -291,7 +296,7 @@ public class App {
 	}
 
 	public static void menuMarchandssQ(Marchand m) {
-		System.out.println(m.getNom()+": "+"Bonjour aventurier, prends ton temps et regarde tout ce qui t'intéresse.");
+		System.out.println(m.getNom()+" : "+"Bonjour aventurier, prends ton temps et regarde tout ce qui t'intéresse.");
 		System.out.println("1 - Voir les objets en vente");
 		System.out.println("2 - Vendre un objet");
 		System.out.println("3 - Partir");
@@ -307,7 +312,7 @@ public class App {
 
 	public static void showInventaireMarchand(Marchand m) {
 		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
-		System.out.println(m.getNom()+": "+"Voici tout les objets en ma possession :");
+		System.out.println(m.getNom()+" : "+"Voici tout les objets en ma possession :");
 		for (Item it : m.getInventaire() )
 		{
 			double valeur = it.getValeur();
@@ -319,7 +324,7 @@ public class App {
 			System.out.println(it.getId()+" - " + it.getNom()+" : "+ val +" PO");
 		}
 		System.out.println("");
-		System.out.println(m.getNom()+": "+"Y a-t-il quelque chose que tu aimerais acheter ?");
+		System.out.println(m.getNom()+" : " + "Y a-t-il quelque chose que tu aimerais acheter ?");
 		System.out.println("1 - Acheter un objet");
 		System.out.println("2 - Retour");
 
@@ -347,7 +352,7 @@ public class App {
 		int val = (int) Math.round(valeur);
 		if( m.getInventaire().contains(it) ) {
 			if( ct.getP().getSolde() < val ) {
-				System.out.println(m.getNom()+": "+"Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+				System.out.println(m.getNom() + " : " + "Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
 				System.out.println("");
 				showInventaireMarchand(m);
 			}
@@ -359,7 +364,7 @@ public class App {
 			ct.getP().setSolde( ct.getP().getSolde() - val );
 			m = ct.getDaoMar().save(m);
 			ct.setP( ct.getDaoP().save( ct.getP() ) );
-			System.out.println("Merci pour votre achat!");
+			System.out.println("Merci pour votre achat !");
 			System.out.println("");
 		}
 	}
@@ -378,7 +383,7 @@ public class App {
 			System.out.println(it.getId()+" - " + it.getNom()+" : "+ val +" PO");
 		}
 		System.out.println("");
-		System.out.println(m.getNom()+": "+"Y a-t-il quelque chose que tu voudrais me vendre ?");
+		System.out.println(m.getNom()+" : " + "Y a-t-il quelque chose que tu voudrais me vendre ?");
 		System.out.println("1 - Vendre un objet");
 		System.out.println("2 - Retour");
 
@@ -408,7 +413,7 @@ public class App {
 		if( ct.getP().getInventaire().contains(it) ) {
 			// Valeur de l'objet à modifier selon l'affinité
 			if( m.getSolde() < val ) {
-				System.out.println(m.getNom()+": "+"Désolé, je n'ai pas assez d'argent pour ça. J'ai une famille à nourrir.");
+				System.out.println(m.getNom()+" : " + "Désolé, je n'ai pas assez d'argent pour ça. J'ai une famille à nourrir.");
 				vendreObjet(m);
 			}
 			//retire l'item de l'inventaire du joueur + gère son argent
@@ -421,7 +426,7 @@ public class App {
 			//Problème au niveau du save marchand quand il y a 2 exemplaires du même objet (1 dans le joueur, 1 dans le marchand)
 			m = ct.getDaoMar().save(m);
 			ct.setP( ct.getDaoP().save(j) );
-			System.out.println(m.getNom()+": "+"C'est toujours un plaisir de faire affaire avec vous aventurier!");
+			System.out.println(m.getNom()+" : " + "C'est toujours un plaisir de faire affaire avec vous aventurier !");
 			System.out.println("");
 		}
 	}
