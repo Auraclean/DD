@@ -283,7 +283,7 @@ public class App {
 
 
 			if( question < nb_questions ) {
-				String papoter = saisieString(m.getNom()+": "+"Continuer de discuter ? (Oui/Non)");
+				String papoter = saisieString("Continuer de discuter ? (Oui/Non)");
 				if(papoter.equalsIgnoreCase("Non")) menuMarchand(m); 
 			}
 		}
@@ -419,7 +419,7 @@ public class App {
 			//Problème au niveau du save marchand quand il y a 2 exemplaires du même objet (1 dans le joueur, 1 dans le marchand)
 			m = ct.getDaoMar().save(m);
 			ct.setP( ct.getDaoP().save(j) );
-			System.out.println("C'est toujours un plaisir de faire affaire avec vous aventurier!");
+			System.out.println(m.getNom()+": "+"C'est toujours un plaisir de faire affaire avec vous aventurier!");
 			System.out.println("");
 		}
 	}
