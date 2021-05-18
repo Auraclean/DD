@@ -121,14 +121,14 @@ public class App {
 	public static void donneInventaire() {
 		List<Item> allItems = ct.getDaoItem().findAll();
 		List<Item> inventaire = new ArrayList<Item>();
-		//le bout suivant ne marche pas donc à demander à Jordan ce qui va pas dans la recuperation des items des catalogues des marchands
-		/*List<Item> catalogue = new ArrayList<Item>();
+		List<Item> catalogue = new ArrayList<Item>();
 		List<Marchand> marchands = ct.getDaoMar().findAll();
 		for (Marchand m : marchands ) {
+			m=ct.getDaoMar().findByIdWithInventaire(m.getId());
 			for (Item item : m.getInventaire()) {
 				catalogue.add(item);
 			}
-		}*/
+		}
 		Item it = null;
 		List<Item> obj = ct.getP().getJob().getObjectifs();
 
@@ -137,7 +137,7 @@ public class App {
 			do {
 				Random rand = new Random();
 				it = allItems.get( rand.nextInt( allItems.size() ) );
-			} while( obj.contains(it) || inventaire.contains(it) ); // ici il faudrait rajouter dans le while: || catalogue.contains(it)
+			} while( obj.contains(it) || inventaire.contains(it) || catalogue.contains(it));
 			inventaire.add(it);
 		}
 		ct.getP().setInventaire(inventaire);
