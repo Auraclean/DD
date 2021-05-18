@@ -75,7 +75,7 @@ public class App {
 	// créer le joueur, lui explique les règles 
 	public static void jouer() {
 		creationJoueur();
-		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de pièces d'or.");
+		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi que "+ct.getP().getObjectif()+" de pièces d'or.");
 		System.out.println("Ce n'est qu'une fois ce but atteint qu'il te sera possible de commencer ta propre aventure dans ce monde !");
 		System.out.println("A présent, va et montre-moi tes capacités de marchand.");
 		System.out.println("");
@@ -95,6 +95,7 @@ public class App {
 		System.out.println("*Vous avez obtenu un inventaire (plein)!*");
 		System.out.println("");
 		donneInventaire();
+		objectifMonetaire();
 		ct.setP( ct.getDaoP().save( ct.getP() ) );
 	}
 
@@ -141,11 +142,28 @@ public class App {
 		}
 		ct.getP().setInventaire(inventaire);
 	}
+	public static void objectifMonetaire() {
+		List<Item> inventaire = ct.getP().getInventaire();
+		List<Item> obj = ct.getP().getJob().getObjectifs();
+		int sum = 0;
+		int objectifs = 0;
+		for (Item it : inventaire) sum+=it.getValeur();
+		//On soustrait la somme des valeurs des objets a acheter
+		for(Item it : obj) objectifs+=it.getValeur();
+		List<Marchand> marchands =ct.getDaoMar().findAll();
+		int argentDispo = 0;
+		for (Marchand m : marchands) argentDispo+=m.getSolde();
+		//On ne peut pas gagner plus d'argent que la somme présente dans les bourses des marchands presents
+		if(sum-objectifs >= argentDispo) sum = argentDispo- objectifs -30;
+		//On laisse une marge d'erreur si le joueur rate les questions
+		else sum = sum - objectifs - 30;
+		ct.getP().setObjectif(sum);
+	}
 
 	/* ------------------------------------ Menu de base ------------------------------------ */
 	public static void menu() {
 
-		if( ct.getP().getInventaire().containsAll( ct.getP().getJob().getObjectifs() ) && ct.getP().getSolde() >= 100 ) 
+		if( ct.getP().getInventaire().containsAll( ct.getP().getJob().getObjectifs() ) && ct.getP().getSolde() >= ct.getP().getObjectif()) 
 			victoryScreen();
 
 		System.out.println("Que faire ?");
@@ -179,7 +197,7 @@ public class App {
 	public static void showObjectifs() {
 		for( Item i : ct.getP().getJob().getObjectifs() )
 			System.out.println("- Se procurer un(e) "+i);
-		System.out.println("- Obtenir une centaine de pièces d'or");
+		System.out.println("- Obtenir "+ct.getP().getObjectif()+" pièces d'or");
 		System.out.println("");
 	}
 
@@ -366,10 +384,10 @@ public class App {
 			//retire l'item de l'inventaire du marchand + gère son argent
 			inv_marchand.remove(it); m.setInventaire(inv_marchand);
 			m.setSolde( m.getSolde() + val );
+			m = ct.getDaoMar().save(m);
 			//ajoute l'item à l'inventaire du joueur + gère son argent
 			inv_joueur.add(it); ct.getP().setInventaire(inv_joueur);
 			ct.getP().setSolde( ct.getP().getSolde() - val );
-			m = ct.getDaoMar().save(m);
 			ct.setP( ct.getDaoP().save( ct.getP() ) );
 			System.out.println("Merci pour votre achat !");
 			System.out.println("");
