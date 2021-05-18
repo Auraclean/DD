@@ -186,6 +186,7 @@ public class App {
 		if( ct.getP().getInventaire().containsAll( ct.getP().getJob().getObjectifs() ) && ct.getP().getSolde() >= ct.getP().getObjectif()) 
 			victoryScreen();
 
+		System.out.println("Vous venez d'arriver sur la place du village.");
 		System.out.println("Que faire ?");
 		System.out.println("1 - Aller voir un marchand");
 		System.out.println("2 - Voir les objectifs");
