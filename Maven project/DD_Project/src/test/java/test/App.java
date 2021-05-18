@@ -78,6 +78,7 @@ public class App {
 		System.out.println("Dans ce village, ton but sera d'obtenir tous les objets de ta classe ainsi qu'une centaine de pièces d'or.");
 		System.out.println("Ce n'est qu'une fois ce but atteint qu'il te sera possible de commencer ta propre aventure dans ce monde !");
 		System.out.println("A présent, va et montre-moi tes capacités de marchand.");
+		System.out.println("");
 		menu();
 	}
 
@@ -186,7 +187,8 @@ public class App {
 		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		System.out.println("");
 		afficherList( ct.getP().getInventaire() );
-
+		System.out.println("");
+		
 		System.out.println("Que faire ?");
 		System.out.println("1 - Voir la description d'un objet");
 		System.out.println("2 - Retour");
@@ -355,6 +357,10 @@ public class App {
 			//ajoute l'item à l'inventaire du joueur + gère son argent
 			inv_joueur.add(it); ct.getP().setInventaire(inv_joueur);
 			ct.getP().setSolde( ct.getP().getSolde() - val );
+			m = ct.getDaoMar().save(m);
+			ct.setP( ct.getDaoP().save( ct.getP() ) );
+			System.out.println("Merci pour votre achat!");
+			System.out.println("");
 		}
 	}
 
@@ -414,6 +420,8 @@ public class App {
 			//Problème au niveau du save marchand quand il y a 2 exemplaires du même objet (1 dans le joueur, 1 dans le marchand)
 			m = ct.getDaoMar().save(m);
 			ct.setP( ct.getDaoP().save(j) );
+			System.out.println("C'est toujours un plaisir de faire affaire avec vous aventurier!");
+			System.out.println("");
 		}
 	}
 
