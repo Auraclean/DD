@@ -330,6 +330,7 @@ public class App {
 			acheter(m, id_objet);break;
 		case 2 : menuMarchand(m);break;
 		}
+		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		showInventaireMarchand(m);
 	}
 
@@ -388,7 +389,8 @@ public class App {
 			vendre(m, id_objet);break;
 		case 2 : menuMarchand(m);break;
 		}
-		vendreObjet(m);
+		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
+		vendreObjet(m);	
 	}
 
 	public static void vendre(Marchand m, int id_objet) {
