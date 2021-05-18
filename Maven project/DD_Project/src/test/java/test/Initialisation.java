@@ -221,7 +221,7 @@ public class Initialisation {
 		
 		Marchand m3 = new Marchand("GREGORY LE CHANTEUR", 275, catalogue3, "Boutique du Dragon Chantant", 45, 0.3);
 		m3.setBonjour("Bonjour gamin, bienvenue dans l'antre du Dragon!");
-		m3.setAurevoir("Fais attention à toi gamain!");
+		m3.setAurevoir("Fais attention à toi gamin!");
 		m3.setBonneReponse("Bien joué gamin !");
 		m3.setMauvaiseReponse("Dommage, apprend de tes erreurs.");
 		m3.setVenteOk("J'achète gamin!");
