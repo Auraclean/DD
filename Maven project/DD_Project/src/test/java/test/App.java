@@ -256,7 +256,6 @@ public class App {
 
 
 	public static void discuter(Marchand m) {
-		int[] rep = new int[3];
 		int question = 0;
 		int nb_questions = 2; // nb de questions totales par marchand
 		// On ne peut pas importer directement du marchand les questions avec m.getQuestions car lazy...
@@ -272,7 +271,6 @@ public class App {
 			for( Reponse r : q.getReponses() ) {
 				i++;
 				System.out.println( (i+1) +" - "+ r.getLibelle() );
-				rep[i] = r.getId();	
 			}
 			int choix = saisieInt("");
 			//Trouver un moyen de sélectionner une réponse
@@ -317,8 +315,11 @@ public class App {
 
 	public static void showInventaireMarchand(Marchand m) {
 		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
+		System.out.println("");
 		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
 		System.out.println(m.getNom() + " : Voici tout les objets en ma possession :");
+		int i = -1;
+		int[] ind = new int[ m.getInventaire().size() ];
 		for (Item it : m.getInventaire() )
 		{
 			double valeur = it.getValeur();
@@ -327,7 +328,9 @@ public class App {
 			if(m.getAffinite()>66) valeur=valeur-it.getValeur()*m.getModPrix();
 			if(m.getAffinite()>80) valeur=valeur-it.getValeur()*m.getModPrix();
 			int val = (int) Math.round(valeur);
-			System.out.println(it.getId() + " - " + it.getNom() + " : " + val + " PO");
+			i++;
+			ind[i] = it.getId();
+			System.out.println( (i+1) + " - " + it.getNom() + " : " + val + " PO");
 		}
 		System.out.println("");
 		System.out.println(m.getNom()+" : Y a-t-il quelque chose que tu aimerais acheter ?");
@@ -337,8 +340,8 @@ public class App {
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 :
-			int id_objet = saisieInt("Sélectionner l'Id de l'objet à acheter :");
-			acheter(m, id_objet);break;
+			int id_objet = saisieInt("Sélectionner le numéro de l'objet à acheter :");
+			acheter(m, ind[ id_objet-1 ]);break;
 		case 2 : menuMarchand(m);break;
 		}
 		showInventaireMarchand(m);
@@ -348,7 +351,6 @@ public class App {
 		Item it = ct.getDaoItem().findById(id_objet);
 		List<Item> inv_marchand = m.getInventaire();
 		List<Item> inv_joueur = ct.getP().getInventaire();
-
 		double valeur = it.getValeur();
 		if(m.getAffinite()<=25) valeur=valeur+it.getValeur()*m.getModPrix();
 		if(m.getAffinite()<=50) valeur=valeur+it.getValeur()*m.getModPrix();
@@ -376,7 +378,10 @@ public class App {
 
 	public static void vendreObjet(Marchand m) {
 		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
+		System.out.println("");
 		System.out.println("Objets contenus dans l'inventaire :");
+		int i = -1;
+		int[] ind = new int[ ct.getP().getInventaire().size() ];
 		for (Item it : ct.getP().getInventaire() ) 
 		{
 			//Attention, il faut modifier le prix selon le marchand...
@@ -386,7 +391,9 @@ public class App {
 			if(m.getAffinite()>66) valeur=valeur+it.getValeur()*m.getModPrix();
 			if(m.getAffinite()>80) valeur=valeur+it.getValeur()*m.getModPrix();
 			int val = (int) Math.round(valeur);
-			System.out.println(it.getId()+" - " + it.getNom()+" : "+ val +" PO");
+			i++;
+			ind[i] = it.getId();
+			System.out.println( (i+1) + " - " + it.getNom() + " : " + val + " PO");
 		}
 		System.out.println("");
 		System.out.println(m.getNom()+" : Y a-t-il quelque chose que tu voudrais me vendre ?");
@@ -396,8 +403,8 @@ public class App {
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 :
-			int id_objet = saisieInt("Sélectionner l'Id de l'objet à vendre :");
-			vendre(m, id_objet);break;
+			int id_objet = saisieInt("Sélectionner le numéro de l'objet à vendre :");
+			vendre(m, ind[ id_objet-1 ]);break;
 		case 2 : menuMarchand(m);break;
 		}
 		vendreObjet(m);	
