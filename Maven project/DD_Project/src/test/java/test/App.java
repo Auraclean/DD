@@ -154,7 +154,7 @@ public class App {
 		int argentDispo = 0;
 		for (Marchand m : marchands) argentDispo+=m.getSolde();
 		//On ne peut pas gagner plus d'argent que la somme présente dans les bourses des marchands presents
-		if(sum-objectifs >= argentDispo) sum = argentDispo- objectifs -30;
+		if(sum > argentDispo) sum = argentDispo - objectifs -30;
 		//On laisse une marge d'erreur si le joueur rate les questions
 		else sum = sum - objectifs - 30;
 		ct.getP().setObjectif(sum);
