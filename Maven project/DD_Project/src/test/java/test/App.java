@@ -177,8 +177,9 @@ public class App {
 
 	public static void showObjectifs() {
 		for( Item i : ct.getP().getJob().getObjectifs() )
-			System.out.println(" - Se procurer un(e) "+i);
-		System.out.println(" - Obtenir une centaine de pièces d'or");
+			System.out.println("- Se procurer un(e) "+i);
+		System.out.println("- Obtenir une centaine de pièces d'or");
+		System.out.println("");
 	}
 
 	public static void showInventaire() {
