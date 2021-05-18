@@ -113,17 +113,22 @@ public class App {
 	public static void choisirClasse() {
 		String choix = null;
 		Archetype classe = null;
+		int c = 0;
+		
 		do {
 			System.out.println("");
-			System.out.println("Avant tout, quelle est ta classe ?");
-			//Montre les classes disponibles
-			int i = 0;
-			for( Archetype a : ct.getDaoArc().findAll() ) {
-				i++;
-				System.out.println(i + " - " + a.getNom());
-			}
-			System.out.println("");
-			classe = ct.getDaoArc().findById( saisieInt("") );
+			do {
+				System.out.println("Avant tout, quelle est ta classe ?");
+				//Montre les classes disponibles
+				int i = 0;
+				for( Archetype a : ct.getDaoArc().findAll() ) {
+					i++;
+					System.out.println(i + " - " + a.getNom());
+				}
+				System.out.println("");
+				c = saisieInt("");
+			} while( c < 1 || c > ct.getDaoArc().findAll().size() );
+			classe = ct.getDaoArc().findById(c);
 			//Montre les objectifs liés à la classe choisie
 			System.out.println("Voici les objets correspondant à cette classe :");
 			for( Item it : classe.getObjectifs() ) System.out.println("- " + it);	
