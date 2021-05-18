@@ -18,23 +18,23 @@ public class Marchand extends Personne{
 	@OneToMany(mappedBy = "marchand")
 	//@JoinTable(name="questions",joinColumns = @JoinColumn(name="idMarchand"),inverseJoinColumns = @JoinColumn(name="idQuestion"))
 	private List<Question> questions;
-	@Column(name="phrase_acceuil", length = 150)
+	@Column(name="phrase_acceuil", length = 200)
 	private String bonjour;
-	@Column(name="phrase_depart", length = 150)
+	@Column(name="phrase_depart", length = 200)
 	private String aurevoir;
-	@Column(name="bonne_reponse", length = 150)
+	@Column(name="bonne_reponse", length = 200)
 	private String bonneReponse;
-	@Column(name="mauvaise_reponse", length = 150)
+	@Column(name="mauvaise_reponse", length = 200)
 	private String mauvaiseReponse;
-	@Column(name="vente_reussie", length = 150)
+	@Column(name="vente_reussie", length = 200)
 	private String venteOk;
-	@Column(name="vente_echec", length = 150)
+	@Column(name="vente_echec", length = 200)
 	private String venteNope;
-	@Column(name="affichage_stock", length = 150)
+	@Column(name="affichage_stock", length = 200)
 	private String stock;
-	@Column(name="achat_realise", length = 150)
+	@Column(name="achat_realise", length = 200)
 	private String achatOk;
-	@Column(name="achat_impossible", length = 150)
+	@Column(name="achat_impossible", length = 200)
 	private String achatNope;
 	
 	public Marchand() {}
