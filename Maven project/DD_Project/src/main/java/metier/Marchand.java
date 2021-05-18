@@ -18,23 +18,23 @@ public class Marchand extends Personne{
 	@OneToMany(mappedBy = "marchand")
 	//@JoinTable(name="questions",joinColumns = @JoinColumn(name="idMarchand"),inverseJoinColumns = @JoinColumn(name="idQuestion"))
 	private List<Question> questions;
-	@Column(name="phrase_acceuil", length = 100)
+	@Column(name="phrase_acceuil", length = 150)
 	private String bonjour;
-	@Column(name="phrase_depart", length = 100)
+	@Column(name="phrase_depart", length = 150)
 	private String aurevoir;
-	@Column(name="bonne_reponse", length = 100)
+	@Column(name="bonne_reponse", length = 150)
 	private String bonneReponse;
-	@Column(name="mauvaise_reponse", length = 100)
+	@Column(name="mauvaise_reponse", length = 150)
 	private String mauvaiseReponse;
-	@Column(name="vente_reussie", length = 100)
+	@Column(name="vente_reussie", length = 150)
 	private String venteOk;
-	@Column(name="vente_echec", length = 100)
+	@Column(name="vente_echec", length = 150)
 	private String venteNope;
-	@Column(name="affichage_stock", length = 100)
+	@Column(name="affichage_stock", length = 150)
 	private String stock;
-	@Column(name="achat_realise", length = 100)
+	@Column(name="achat_realise", length = 150)
 	private String achatOk;
-	@Column(name="achat_impossible", length = 100)
+	@Column(name="achat_impossible", length = 150)
 	private String achatNope;
 	
 	public Marchand() {}
@@ -111,6 +111,14 @@ public class Marchand extends Personne{
 
 	public void setBonjour(String bonjour) {
 		this.bonjour = bonjour;
+	}
+
+	public String getAurevoir() {
+		return aurevoir;
+	}
+
+	public void setAurevoir(String aurevoir) {
+		this.aurevoir = aurevoir;
 	}
 
 	public String getBonneReponse() {

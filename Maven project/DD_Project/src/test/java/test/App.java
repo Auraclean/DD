@@ -269,7 +269,7 @@ public class App {
 
 	/* ------------------------------------ Menu Marchand ------------------------------------ */
 	public static void menuMarchand(Marchand m) {
-		System.out.println( m.getNom() + " : " + "Bonjour aventurier, prends ton temps et regarde tout ce qui t'intéresse.");
+		System.out.println( m.getNom() + " : " + m.getBonjour());
 		System.out.println("1 - Discuter");
 		System.out.println("2 - Voir les objets en vente");
 		System.out.println("3 - Vendre un objet");
@@ -281,7 +281,7 @@ public class App {
 		case 2 : showInventaireMarchand(m);break;
 		case 3 : vendreObjet(m);break;
 		case 4 :
-			System.out.println(m.getNom() + " : A la prochaine !");
+			System.out.println(m.getNom() + " : " + m.getAurevoir());
 			System.out.println("");
 			menu();break;
 		}
@@ -454,7 +454,7 @@ public class App {
 		if( ct.getP().getInventaire().contains(it) ) {
 			// Valeur de l'objet à modifier selon l'affinité
 			if( m.getSolde() < val ) {
-				System.out.println(m.getNom()+" : Désolé, je n'ai pas assez d'argent pour ça. J'ai une famille à nourrir.");
+				System.out.println(m.getNom()+" : "+m.getVenteNope());
 				vendreObjet(m);
 			}
 			//retire l'item de l'inventaire du joueur + gère son argent
@@ -467,7 +467,7 @@ public class App {
 			//Problème au niveau du save marchand quand il y a 2 exemplaires du même objet (1 dans le joueur, 1 dans le marchand)
 			m = ct.getDaoMar().save(m);
 			ct.setP( ct.getDaoP().save(j) );
-			System.out.println(m.getNom()+" : C'est toujours un plaisir de faire affaire avec vous aventurier !");
+			System.out.println(m.getNom()+" : "+ m.getVenteOk());
 			System.out.println("");
 		}
 	}
