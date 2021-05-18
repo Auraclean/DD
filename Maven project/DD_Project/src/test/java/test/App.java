@@ -14,7 +14,7 @@ public class App {
 
 	static LocalDateTime start = LocalDateTime.now();
 	static Context ct = Context.get_instance();
-	
+
 
 	/* ------------------------------------ Fonctions d'entrées au clavier ------------------------------------ */
 	public static String saisieString(String msg) 
@@ -41,7 +41,7 @@ public class App {
 	/* ------------------------------------ Fonctions I/O ------------------------------------ */
 
 
-	
+
 
 	/* ------------------------------------ MAIN ------------------------------------ */
 	public static void main(String[] args) {
@@ -112,7 +112,7 @@ public class App {
 		} while( !(choix.equalsIgnoreCase("Oui")) );
 		ct.getP().setJob(classe);
 	}
-	
+
 	public static <T> void afficherList(List<T> list) {
 		for( T t : list ) System.out.println(t);
 	}
@@ -210,7 +210,7 @@ public class App {
 		System.out.println("--- PAUSE ---");
 		LocalDateTime pause = LocalDateTime.now();
 		System.out.println("Temps de jeu : " + Duration.between(start, pause).toHours() +
-		" h " + Duration.between(start, pause).toMinutesPart() + " min "+ Duration.between(start, pause).toSecondsPart()+" sec");
+				" h " + Duration.between(start, pause).toMinutesPart() + " min "+ Duration.between(start, pause).toSecondsPart()+" sec");
 		System.out.println("");
 		System.out.println("1 - Reprendre le jeu");
 		System.out.println("2 - Réinitialiser la partie");
@@ -243,16 +243,19 @@ public class App {
 		}
 		menuMarchand(m);
 	}
-	
-	
+
+
 
 	public static void discuter(Marchand m) {
 		int[] rep = new int[3];
+		int question = 0;
+		int nb_questions = 2; // nb de questions totales par marchand
 		// On ne peut pas importer directement du marchand les questions avec m.getQuestions car lazy...
 		List<Question> questions = ct.getDaoQues().findByIdMarchand( m.getId() );
 		// ajouter un attribut aux questions pour vérifier si elle a déjà été posée.
 		// hashMap pour gérer les questions.
 		for( Question q : questions ) {
+			question++;
 			//ne marche pas
 			if(q.isRepondue()) {System.out.println("tu as deja repondu"); continue;}
 			int i = -1;
@@ -276,10 +279,12 @@ public class App {
 			}
 			m = ct.getDaoMar().save(m);
 			q = ct.getDaoQues().save(q);
-			//Il faut trouver un moyen de stocker le nombre de questions restantes pour reprendre si le joueur a envie 
-			// LinkedList pour les questions ?
-			String papoter = saisieString("Continuer de discuter ? (Oui/Non)");
-			if(papoter.equalsIgnoreCase("Non")) menuMarchand(m); 
+
+
+			if( question < nb_questions ) {
+				String papoter = saisieString("Continuer de discuter ? (Oui/Non)");
+				if(papoter.equalsIgnoreCase("Non")) menuMarchand(m); 
+			}
 		}
 		menuMarchandssQ(m);
 	}
@@ -331,7 +336,7 @@ public class App {
 		Item it = ct.getDaoItem().findById(id_objet);
 		List<Item> inv_marchand = m.getInventaire();
 		List<Item> inv_joueur = ct.getP().getInventaire();
-		
+
 		double valeur = it.getValeur();
 		if(m.getAffinite()<=25) valeur=valeur+it.getValeur()*m.getModPrix();
 		if(m.getAffinite()<=50) valeur=valeur+it.getValeur()*m.getModPrix();
@@ -424,5 +429,5 @@ public class App {
 		System.out.println("Temps de jeu : " + Duration.between(start, end).toMinutes()+" minutes "+ Duration .between(start, end).toSecondsPart()+" secondes");
 		System.exit(0);
 	}
-	
+
 }
