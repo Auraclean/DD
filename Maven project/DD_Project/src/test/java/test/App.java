@@ -1,5 +1,8 @@
 package test;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,9 +15,9 @@ import util.Context;
 
 public class App {
 
-	static LocalDateTime start = LocalDateTime.now();
+	static LocalDateTime start;
+	static long h = 0, min = 0, s = 0;
 	static Context ct = Context.get_instance();
-
 
 	/* ------------------------------------ Fonctions d'entrées au clavier ------------------------------------ */
 	public static String saisieString(String msg) 
@@ -39,9 +42,15 @@ public class App {
 	}
 
 	/* ------------------------------------ Fonctions I/O ------------------------------------ */
-
-
-
+	private static void ecrire(String chemin) {
+		File f = new File(chemin);
+		try(FileWriter fw = new FileWriter(f);) { 
+			fw.write("Félicitations " + ct.getP().getNom() + " ! Vous avez réussi à terminer le Projet DD. \n \nVous avez mis "
+		+ h + " h " + min + " min " + s + " s avec la classe " + ct.getP().getJob().getNom() +" ! \nMerci d'avoir joué ! \nThomas, Yann, Nicola" ); 
+		} catch(IOException ioe) { 
+			ioe.printStackTrace(); 
+		}
+	}
 
 	/* ------------------------------------ MAIN ------------------------------------ */
 	public static void main(String[] args) {
@@ -54,6 +63,8 @@ public class App {
 
 	/* ------------------------------------ Start Jeu ------------------------------------ */
 	public static void startJeu() {
+		start = LocalDateTime.now();
+		System.out.println("");
 		System.out.println("Salut à toi, aventurier !");
 		System.out.println("Tu errais dans la forêt mais tu viens d'apercevoir un petit village.");
 		System.out.println("Que décides-tu ?");
@@ -106,7 +117,11 @@ public class App {
 			System.out.println("");
 			System.out.println("Avant tout, quelle est ta classe ?");
 			//Montre les classes disponibles
-			for( Archetype a : ct.getDaoArc().findAll() ) System.out.println(a);
+			int i = 0;
+			for( Archetype a : ct.getDaoArc().findAll() ) {
+				i++;
+				System.out.println(i + " - " + a.getNom());
+			}
 			System.out.println("");
 			classe = ct.getDaoArc().findById( saisieInt("") );
 			//Montre les objectifs liés à la classe choisie
@@ -235,9 +250,7 @@ public class App {
 	/* ------------------------------------ Pause ------------------------------------ */   
 	public static void pause() {
 		System.out.println("--- PAUSE ---");
-		LocalDateTime pause = LocalDateTime.now();
-		System.out.println("Temps de jeu : " + Duration.between(start, pause).toHours() +
-				" h " + Duration.between(start, pause).toMinutesPart() + " min "+ Duration.between(start, pause).toSecondsPart()+" sec");
+		gestionTime();
 		System.out.println("");
 		System.out.println("1 - Reprendre le jeu");
 		System.out.println("2 - Réinitialiser la partie");
@@ -245,6 +258,7 @@ public class App {
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 : 
+			start = LocalDateTime.now();
 			menu();break;
 		case 2 : 
 			String r = saisieString("Veux-tu vraiment arrêter la partie en cours ? (Oui/Non)");
@@ -457,17 +471,34 @@ public class App {
 			System.out.println("");
 		}
 	}
+	
+	public static void gestionTime() {
+		LocalDateTime t = LocalDateTime.now();
+		h += Duration.between(start, t).toHours();
+		min += Duration.between(start, t).toMinutesPart();
+		s += Duration.between(start, t).toSecondsPart();
+		if( s > 59 ) {
+			s = s%60;
+			min++;		
+		}
+		if( min > 59 ) {
+			min = min%60;
+			h++;
+		}
+		System.out.println("Temps de jeu : " + h + " h " + min + " min " + s + " s");
+	}
 
 	/* ------------------------------------ Ecran de victoire ------------------------------------ */
 	public static void victoryScreen() {
-		// remplir ici un fichier avec les données du joueur + remerciements. 
-		System.out.println(ct.getP1() + "Je t'attendais aventurier !");
-		System.out.println(ct.getP1() + "Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
-		System.out.println(ct.getP1() + "J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
+		System.out.println(" !!! ");
 		System.out.println("");
-		LocalDateTime end = LocalDateTime.now();
-		System.out.println("Temps de jeu : " + Duration.between(start, end).toMinutes()+" minutes "+ Duration .between(start, end).toSecondsPart()+" secondes");
+		System.out.println("Je t'attendais aventurier !");
+		System.out.println("Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
+		System.out.println("J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
+		System.out.println("");
+		gestionTime();
 		System.out.println("***Bravo, vous avez accompli vos objectifs avec brio !***");
+		ecrire("Félicitations.txt");
 		System.exit(0);
 	}
 
