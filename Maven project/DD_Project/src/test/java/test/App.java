@@ -465,9 +465,9 @@ public class App {
 		System.out.println(ct.getP1() + "Je te félicite ! Tu es parvenu à réunir les objets et l'argent nécessaires à ton périple.");
 		System.out.println(ct.getP1() + "J'espère que ton séjour ici a été plaisant. N'hésite pas à revenir me voir !");
 		System.out.println("");
-		System.out.println("***Bravo, vous avez accompli vos objectifs avec brio !***");
 		LocalDateTime end = LocalDateTime.now();
 		System.out.println("Temps de jeu : " + Duration.between(start, end).toMinutes()+" minutes "+ Duration .between(start, end).toSecondsPart()+" secondes");
+		System.out.println("***Bravo, vous avez accompli vos objectifs avec brio !***");
 		System.exit(0);
 	}
 
