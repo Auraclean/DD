@@ -198,24 +198,26 @@ public class Initialisation {
 		catalogue3.add(i19);
 
 		Marchand m1 = new Marchand("HALVAR LE FORGERON", 300, catalogue1, "Les Forges Infernalles", 50);
-		m1.setBonjour(null);
-		m1.setBonneReponse("Bonne réponse !");
-		m1.setMauvaiseReponse("Mauvaise réponse.");
-		m1.setVenteOk(null);
-		m1.setVenteNope(null);
-		m1.setStock(null);
+		m1.setBonjour("Bonjour et bienvenue dans ma modeste forge! Prenez votre temps pour choisir ce qu'il y a de mieux pour vous.");
+		m1.setAurevoir("A la revoyure aventurier!");
+		m1.setBonneReponse("C'est une réponse intéressante.");
+		m1.setMauvaiseReponse("Médiocre. Je m'attendais à mieux de votre part.");
+		m1.setVenteOk("Un plaisir de faire affaire avec vous!");
+		m1.setVenteNope("Désolé, je n'ai pas assez d'argent pour ça. J'ai une famille à nourrir.");
+		m1.setStock("Voici l'ensemble de mes produits, la fierté de mon établissement!");
 		m1.setAchatOk("Merci pour votre achat !");
-		m1.setAchatNope("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+		m1.setAchatNope("Désolé, la maison ne fait pas crédit. Revenez quand vous aurez la somme nécessaire.");
 		
 		Marchand m2 = new Marchand("THORVALD LE VOYAGEUR", 200, catalogue2, "Boutique de Souvenirs du Monde", 66, 0.2);
-		m2.setBonjour(null);
-		m2.setBonneReponse("Bonne réponse !");
-		m2.setMauvaiseReponse("Mauvaise réponse.");
-		m2.setVenteOk(null);
-		m2.setVenteNope(null);
-		m2.setStock(null);
-		m2.setAchatOk("Merci pour votre achat !");
-		m2.setAchatNope("Désolé, la maison ne fait pas crédit. Reviens quand tu disposeras de la somme nécessaire.");
+		m2.setBonjour("Bienvenue dans l'échoppe la plus excentrique du confins de ces terres étranger!");
+		m2.setAurevoir("Reviens vite l'étranger...");
+		m2.setBonneReponse("Hum je vois... tu n'es pas un voyageur comme les autres...");
+		m2.setMauvaiseReponse("AH! Tu n'es rien de spécial pauvre sot!");
+		m2.setVenteOk("Hé hé hé...une affaire rondement menée!");
+		m2.setVenteNope("Tu crois vraiment que je vais t'acheter ta camelotte? Ma marchandise est de bien meilleure facture!");
+		m2.setStock("Ouvre grand tes mirettes et observe les plus précieux trésors de cette contrée!");
+		m2.setAchatOk("Hé hé, une transaction réglée en monnaie sonnante et trébuchante!");
+		m2.setAchatNope("Passe ton chemin manant, je n'accepte pas les sans-le-sous dans mon havre de curiosités.");
 		
 		Marchand m3 = new Marchand("GREGORY LE CHANTEUR", 275, catalogue3, "Boutique du Dragon Chantant", 35, 0.5);
 		m3.setBonjour(null);
