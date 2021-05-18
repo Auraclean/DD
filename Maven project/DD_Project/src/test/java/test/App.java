@@ -258,11 +258,10 @@ public class App {
 		// hashMap pour gérer les questions.
 		for( Question q : questions ) {
 			question++;
-			//ne marche pas
-			if(q.isRepondue()) {System.out.println("tu as deja repondu"); continue;}
+			if(q.isRepondue()) continue;
+			q.setRepondue(true);
 			int i = -1;
 			System.out.println( q.getLibelle() );
-			q.setRepondue(true);
 			for( Reponse r : q.getReponses() ) {
 				i++;
 				System.out.println( (i+1) +"- "+ r.getLibelle() );
