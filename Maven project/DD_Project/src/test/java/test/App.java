@@ -313,7 +313,8 @@ public class App {
 
 	public static void showInventaireMarchand(Marchand m) {
 		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
-		System.out.println(m.getNom()+" : "+"Voici tout les objets en ma possession :");
+		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
+		System.out.println(m.getNom()+": "+"Voici tout les objets en ma possession :");
 		for (Item it : m.getInventaire() )
 		{
 			double valeur = it.getValeur();
@@ -336,7 +337,6 @@ public class App {
 			acheter(m, id_objet);break;
 		case 2 : menuMarchand(m);break;
 		}
-		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		showInventaireMarchand(m);
 	}
 
@@ -371,6 +371,7 @@ public class App {
 	}
 
 	public static void vendreObjet(Marchand m) {
+		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		System.out.println("Objets contenus dans l'inventaire :");
 		for (Item it : ct.getP().getInventaire() ) 
 		{
@@ -395,7 +396,6 @@ public class App {
 			vendre(m, id_objet);break;
 		case 2 : menuMarchand(m);break;
 		}
-		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		vendreObjet(m);	
 	}
 
