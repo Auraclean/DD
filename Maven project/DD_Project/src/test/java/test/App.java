@@ -46,7 +46,7 @@ public class App {
 		File f = new File(chemin);
 		try(FileWriter fw = new FileWriter(f);) { 
 			fw.write("Félicitations " + ct.getP().getNom() + " ! Vous avez réussi à terminer le Projet DD. \n \nVous avez mis "
-		+ h + " h " + min + " min " + s + " s avec la classe " + ct.getP().getJob().getNom() +" ! \nMerci d'avoir joué ! \nThomas, Yann, Nicola" ); 
+					+ h + " h " + min + " min " + s + " s avec la classe " + ct.getP().getJob().getNom() +" ! \nMerci d'avoir joué ! \nThomas, Yann, Nicola" ); 
 		} catch(IOException ioe) { 
 			ioe.printStackTrace(); 
 		}
@@ -113,17 +113,22 @@ public class App {
 	public static void choisirClasse() {
 		String choix = null;
 		Archetype classe = null;
+		int c = 0;
+		
 		do {
 			System.out.println("");
-			System.out.println("Avant tout, quelle est ta classe ?");
-			//Montre les classes disponibles
-			int i = 0;
-			for( Archetype a : ct.getDaoArc().findAll() ) {
-				i++;
-				System.out.println(i + " - " + a.getNom());
-			}
-			System.out.println("");
-			classe = ct.getDaoArc().findById( saisieInt("") );
+			do {
+				System.out.println("Avant tout, quelle est ta classe ?");
+				//Montre les classes disponibles
+				int i = 0;
+				for( Archetype a : ct.getDaoArc().findAll() ) {
+					i++;
+					System.out.println(i + " - " + a.getNom());
+				}
+				System.out.println("");
+				c = saisieInt("");
+			} while( c < 1 || c > ct.getDaoArc().findAll().size() );
+			classe = ct.getDaoArc().findById(c);
 			//Montre les objectifs liés à la classe choisie
 			System.out.println("Voici les objets correspondant à cette classe :");
 			for( Item it : classe.getObjectifs() ) System.out.println("- " + it);	
@@ -181,6 +186,7 @@ public class App {
 		if( ct.getP().getInventaire().containsAll( ct.getP().getJob().getObjectifs() ) && ct.getP().getSolde() >= ct.getP().getObjectif()) 
 			victoryScreen();
 
+		System.out.println("Vous venez d'arriver sur la place du village.");
 		System.out.println("Que faire ?");
 		System.out.println("1 - Aller voir un marchand");
 		System.out.println("2 - Voir les objectifs");
@@ -227,7 +233,7 @@ public class App {
 			System.out.println( i + " - " + it);
 		}
 		System.out.println("");
-		
+
 		System.out.println("Que faire ?");
 		System.out.println("1 - Voir la description d'un objet");
 		System.out.println("2 - Retour");
@@ -364,7 +370,10 @@ public class App {
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 :
-			int id_objet = saisieInt("Sélectionner le numéro de l'objet à acheter :");
+			int id_objet = 0;
+			do {
+				id_objet = saisieInt("Sélectionner le numéro de l'objet à acheter :");
+			} while( id_objet < 1 || id_objet > ind.length );
 			acheter(m, ind[ id_objet-1 ]);break;
 		case 2 : menuMarchand(m);break;
 		}
@@ -432,7 +441,10 @@ public class App {
 		int choix = saisieInt("");
 		switch(choix) {
 		case 1 :
-			int id_objet = saisieInt("Sélectionner le numéro de l'objet à vendre :");
+			int id_objet = 0;
+			do {
+				id_objet = saisieInt("Sélectionner le numéro de l'objet à vendre :");
+			} while( id_objet < 1 || id_objet > ind.length );
 			vendre(m, ind[ id_objet-1 ]);break;
 		case 2 : menuMarchand(m);break;
 		}
@@ -471,7 +483,7 @@ public class App {
 			System.out.println("");
 		}
 	}
-	
+
 	public static void gestionTime() {
 		LocalDateTime t = LocalDateTime.now();
 		h += Duration.between(start, t).toHours();

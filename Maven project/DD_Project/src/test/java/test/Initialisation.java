@@ -74,7 +74,7 @@ public class Initialisation {
 		Item i54 	= new Item("Peluche", "C'est surement infesté de puce", 3);
 		Item i55 	= new Item("Lorem Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 33);
 		Item i56 	= new Item("Pomme", "Une pomme", 2);
-		Item i57 	= new Item("Clef", "Ca doit certainement ouvrir quelque chose...", 10);
+		Item i57 	= new Item("Caleçon usagé", "Vous ne savez pas d'où il sort mais laissez le plus d'espace possible entre vous et lui.", 4);
 		Item i58 	= new Item("Arrosoir", "Qui vous a dit que vous n'aviez pas la main verte ?", 8);
 		
 
