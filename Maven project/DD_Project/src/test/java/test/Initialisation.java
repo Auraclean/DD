@@ -173,8 +173,8 @@ public class Initialisation {
 		catalogue2.add(i16);
 		catalogue2.add(i25);
 
-		Marchand m1 = new Marchand("Halvar le Forgeron", 100, catalogue1, "Les Forges Infernalles", 50);
-		Marchand m2 = new Marchand("Thorvald le Voyageur", 70, catalogue2, "Boutique de Souvenirs du Monde", 66, 0.2);
+		Marchand m1 = new Marchand("HALVAR LE FORGERON", 100, catalogue1, "Les Forges Infernalles", 50);
+		Marchand m2 = new Marchand("THORVALD LE VOYAGEUR", 70, catalogue2, "Boutique de Souvenirs du Monde", 66, 0.2);
 
 		m1 = ct.getDaoMar().save(m1);
 		m2 = ct.getDaoMar().save(m2);
