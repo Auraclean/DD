@@ -266,7 +266,10 @@ public class App {
 		case 1 : discuter(m);break;
 		case 2 : showInventaireMarchand(m);break;
 		case 3 : vendreObjet(m);break;
-		case 4 : menu();break;
+		case 4 :
+			System.out.println(m.getNom() + " : A la prochaine !");
+			System.out.println("");
+			menu();break;
 		}
 		menuMarchand(m);
 	}
@@ -313,28 +316,17 @@ public class App {
 		}
 		System.out.println(m.getNom() + " : Je n'ai plus envie de discuter.");
 		System.out.println("");
-		menuMarchandssQ(m);
-	}
-
-	public static void menuMarchandssQ(Marchand m) {
-		System.out.println(m.getNom() + " : Bonjour aventurier, prends ton temps et regarde tout ce qui t'intéresse.");
-		System.out.println("1 - Voir les objets en vente");
-		System.out.println("2 - Vendre un objet");
-		System.out.println("3 - Partir");
-
-		int choix = saisieInt("");
-		switch(choix) {
-		case 1 : showInventaireMarchand(m);break;
-		case 2 : vendreObjet(m);break;
-		case 3 : menu();break;
-		}
-		menuMarchandssQ(m);
 	}
 
 	public static void showInventaireMarchand(Marchand m) {
+		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
+		if( m.getInventaire().isEmpty() ) {
+			System.out.println(m.getNom() + " : Vous avez dévalisé mon magasin, revenez plus tard.");
+			System.out.println("");
+			menuMarchand(m);
+		}
 		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		System.out.println("");
-		m = ct.getDaoMar().findByIdWithInventaire( m.getId() );
 		System.out.println(m.getNom() + " : Voici tout les objets en ma possession :");
 		int i = -1;
 		int[] ind = new int[ m.getInventaire().size() ];
@@ -395,6 +387,11 @@ public class App {
 	}
 
 	public static void vendreObjet(Marchand m) {
+		if( ct.getP().getInventaire().isEmpty() ) {
+			System.out.println("*Apparemment, vous n'avez plus rien a vendre...*");
+			System.out.println("");
+			menuMarchand(m);
+		}
 		System.out.println("Vous possédez "+ ct.getP().getSolde() +" PO.");
 		System.out.println("");
 		System.out.println("Objets contenus dans l'inventaire :");
